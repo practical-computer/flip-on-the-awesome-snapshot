@@ -1,0 +1,43 @@
+en:
+  activerecord:
+    errors:
+      models:
+        organization/note:
+          attributes:
+
+  activemodel:
+    errors:
+      models:
+        organization/note_form:
+          attributes:
+            base:
+              cannot_manage_notes: "You are not able to save notes; please contact support."
+  app_navigation:
+    home_section:
+      notes_title: "Notes"
+  loaf:
+    breadcrumbs:
+      organization_notes: "Notes"
+      new_organization_note: "New Note"
+      organization_note: "Note"
+      edit_organization_note: "Edit Note"
+
+  dispatcher:
+    notes:
+      title: "Notes"
+      form:
+        title: "Add Note"
+        submit_button_title: "Save"
+      new_note:
+        title: "New Note"
+        link_title: "Add a new note"
+      edit_note:
+        title: "Edit Note"
+        link_title: "Edit Note"
+
+      delete_note:
+        link_title: "Delete Note"
+        confirmation_message: "Are you sure you want to delete this note? This cannot be undone!"
+      created_message: "We’ve created your new note!"
+      updated_message: "Updated this note!"
+      deleted_message: "We’ve deleted this note."

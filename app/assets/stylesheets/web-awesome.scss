@@ -1,0 +1,31 @@
+@import url('https://early.webawesome.com/webawesome@3.0.0-alpha.11/dist/styles/webawesome.css') layer(framework.wa);
+
+@layer framework.wa {
+  .wa-off,
+  .wa-off-deep,
+  .wa-off-deep * {
+    all: revert-layer;
+  }
+
+  a.undecorated {
+    --wa-link-decoration-default: none;
+
+    &:has(wa-avatar) {
+      --wa-link-decoration-hover: none;
+    }
+
+    &:hover {
+      wa-avatar + span {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .wa-quiet {
+    color: var(--wa-color-text-quiet);
+  }
+
+  .wa-dialog-stack-patch {
+    margin: auto;
+  }
+}

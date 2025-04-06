@@ -1,0 +1,42 @@
+<%# locals: (datatable_form:, url:) -%>
+
+<%= render Navigation::DatatableFilterWrapperComponent.new(datatable_params: params["datatable"],
+                                                           title: t("dispatcher.job_tasks.datatable_form.title")
+                                                          ) do
+%>
+  <%= application_form_with(model: datatable_form, scope: :datatable, url: url, local: true, method: :get) do |f| %>
+    <%= f.hidden_field :sort_key %>
+    <%= f.hidden_field :sort_direction %>
+    <%= f.fields_for :filters, datatable_form.filters do |filter_fields| %>
+      <%= f.fieldset("aria-required": true, id: f.field_id(:status)) do %>
+        <%= f.legend do %>
+          <%= status_icon %> Status
+          <%= f.field_errors(:status, class: 'visually-hidden', id: f.field_id(:status, :errors_aria)) %>
+        <% end %>
+
+        <%= filter_fields.check_box_collection(field_method: :status, options: job_task_status_options, collection_check_boxes_options: {include_hidden: false}) %>
+      <% end %>
+
+      <%= f.fieldset("aria-required": true, id: f.field_id(:task_type)) do %>
+        <%= f.legend do %>
+          <%= job_task_type_label_icon %> Task Type
+          <%= f.field_errors(:task_type, class: 'visually-hidden', id: f.field_id(:task_type, :errors_aria)) %>
+        <% end %>
+
+        <%= filter_fields.check_box_collection(field_method: :task_type, options: job_task_type_options, collection_check_boxes_options: {include_hidden: false}) %>
+      <% end %>
+
+      <%= f.input_wrapper do %>
+        <%= f.label :label do %>
+          <%= job_task_label_icon %> Task
+        <% end %>
+
+        <%= filter_fields.search_field :label %>
+      <% end %>
+
+      <section>
+        <%= render PracticalFramework::Components::StandardButton.new(title: t("dispatcher.datatable.form.submit_button_title"), leading_icon: apply_filters_icon, type: :submit, html_options: {data: {disable: true}}) %>
+      </section>
+    <% end %>
+  <% end %>
+<% end %>

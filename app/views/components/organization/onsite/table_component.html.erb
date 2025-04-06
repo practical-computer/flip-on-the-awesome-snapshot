@@ -1,0 +1,39 @@
+<table class="onsites">
+  <col class="table-label">
+  <col span="2">
+  <thead>
+    <tr>
+      <th class='table-label' scope="col"><%= icon_text(icon: icon_set.onsite_label_icon, text: "Onsite Label") %></th>
+      <th class='table-label' scope="col"><%= icon_text(icon: icon_set.status_icon, text: "Status") %></th>
+      <th class='table-label' scope="col"><%= icon_text(icon: icon_set.job_task_icon, text: "Tasks") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% onsites.each do |onsite| %>
+    <tr>
+      <td>
+        <section class="wa-stack wa-gap-3xs">
+          <%= link_to(onsite_url(current_organization, onsite)) do %>
+            <%= onsite.label %>
+          <% end %>
+
+          <section class="wa-size-s">
+            <%= render Organization::Onsite::TechnicianUrlComponent.new(onsite: onsite) %>
+          </section>
+        </section>
+      </td>
+
+      <td>
+        <%= render Organization::Onsite::StatusTagComponent.new(onsite: onsite) %>
+      </td>
+
+      <td>
+        <section class="wa-size-s">
+          <%= render Organization::JobTasksSummaryComponent.new(job_tasks: onsite.tasks) %>
+        </section>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

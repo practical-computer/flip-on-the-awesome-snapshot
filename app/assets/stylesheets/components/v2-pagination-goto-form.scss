@@ -1,0 +1,11 @@
+.pagination-goto-form {
+  fieldset{
+    max-inline-size: max-content;
+    padding: var(--wa-space-xs);
+  }
+
+  input {
+    min-inline-size: max-content;
+    max-inline-size: max-content;
+  }
+}

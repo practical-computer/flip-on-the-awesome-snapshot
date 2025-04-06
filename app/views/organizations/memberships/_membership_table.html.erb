@@ -1,0 +1,18 @@
+<table class="no-max-inline-size">
+  <col class="table-label">
+  <col span="3">
+  <thead>
+    <tr>
+      <th class='force-border-start-start-radius table-label' scope='col'><%= user_name_icon %> Name</th>
+      <th class='table-label' scope="col"><%= badge_icon %> Role</th>
+      <th class='table-label' scope="col"><%= email_address_icon %> Email</th>
+      <% if allowed_to?(:manage?, current_organization, with: OrganizationPolicy) %>
+        <th class='table-label force-border-start-end-radius' scope="col"></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%= render partial: "membership_table_row", collection: memberships, as: :membership %>
+  </tbody>
+</table>

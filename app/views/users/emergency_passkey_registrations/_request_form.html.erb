@@ -1,0 +1,20 @@
+<%= practical_form_with(model: form,
+                        url: user_emergency_passkey_registrations_url,
+                        local: false,
+                        "aria-describedby": dom_id(User::EmergencyPasskeyRegistration, :generic_errors),
+                        data: {type: :json}, builder: PracticalFramework::FormBuilders::Base,
+                        class: "stack-compact",
+) do |f| %>
+  <%= f.input_wrapper do %>
+    <%= f.label :email do %>
+      <%= t("practical_framework.forms.input_label.html", icon: icon(style: 'fa-solid', name: 'at'), text: "Email") %>
+    <% end %>
+    <%= f.email_field :email, placeholder: "grace@hopper.me", autofocus: true, autocomplete: "username webauthn", required: true, data: {"focusout-validation": true} %>
+    <%= f.field_errors :email %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+  <% end %>
+  <section>
+    <%= render PracticalFramework::Components::StandardButton.new(title: "Get registration instructions", leading_icon: send_email_icon, type: :submit, html_options: {data: {disable: true}}) %>
+  </section>
+<% end %>

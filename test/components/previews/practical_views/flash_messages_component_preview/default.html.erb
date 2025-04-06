@@ -1,0 +1,5 @@
+<% flash.now[:alert] = "Dangerous action performed" %>
+<% flash.now[:success] = {message: "Done!", icon: icon_set.user_icon} %>
+<% flash.now[:notice] = {message: "We did it"} %>
+
+<%= render PracticalViews::FlashMessagesComponent.new %>

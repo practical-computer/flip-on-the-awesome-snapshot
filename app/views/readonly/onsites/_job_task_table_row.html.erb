@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= render Readonly::JobTaskStatusBadge.new(job_task: job_task) %>
+  </td>
+  <td>
+    <%= job_task.label %>
+  </td>
+  <td>
+    <%= human_minutes(minutes: job_task.estimated_minutes) %>
+  </td>
+</tr>

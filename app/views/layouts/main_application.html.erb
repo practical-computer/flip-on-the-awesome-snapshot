@@ -1,0 +1,39 @@
+<%
+
+  home_section = Navigation::MainApp::HomeSection.new(
+    current_user: current_user,
+    current_organization: inferred_current_organization
+  )
+
+  user_settings_section = Navigation::MainApp::UserSettingsSection.new(
+    current_user: current_user
+  )
+
+  panel = PracticalFramework::Components::TabbedFrame::Panel.new(panel_id: main_application_navigation_link_key)
+  panel.content do |frame|
+    capture {
+      render PracticalFramework::Components::FlashMessages.new(flash: flash)
+      yield
+    }
+  end
+
+  if home_section.items.empty?
+    sections = [user_settings_section]
+  else
+    sections = [home_section, user_settings_section]
+  end
+%>
+
+<% content_for :main_content do %>
+  <%= render PracticalFramework::Components::WindowFrame.new(
+        sections: sections, panels: [panel]
+      )
+  %>
+
+<% end %>
+
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "application", type: :module %>
+<% end %>
+
+<%= render template: "layouts/app_chrome" %>

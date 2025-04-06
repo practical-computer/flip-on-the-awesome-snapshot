@@ -1,0 +1,36 @@
+<tr>
+  <td class="left-sticky table-label" scope="row"><%= membership.user.name %></td>
+  <td>
+    <%= membership_type_icon(membership_type: membership.membership_type) %>
+    <%= t("membership_types.#{membership.membership_type}.human") %>
+  </td>
+  <td><%= mail_to membership.user.email %></td>
+  <% if allowed_to?(:manage?, membership, with: Organization::MembershipPolicy) %>
+    <td>
+      <nav>
+        <ul class='cluster-compact'>
+          <li>
+              <%= link_to edit_organization_membership_url(current_organization, membership) do %>
+                <%= badge_icon %>
+                <%= t('organization_memberships.edit.link_title') %>
+              <% end %>
+
+              <% if membership.archived_by_organization? %>
+                <%= render PracticalFramework::Components::ButtonTo.new(organization_membership_url(current_organization, membership), method: :patch, params: {organization_membership_form: {state: :active}}, class: "success") do %>
+                  <%= badge_icon %>
+                  <%= t('organization_memberships.activate.button_title') %>
+                <% end %>
+              <% end %>
+
+              <% if allowed_to?(:archive?, membership, with: Organization::MembershipPolicy) && membership.active? %>
+                <%= render PracticalFramework::Components::ButtonTo.new(organization_membership_url(current_organization, membership), method: :patch, params: {organization_membership_form: {state: :archived_by_organization}}, class: "danger") do %>
+                  <%= icon(style: 'fa-kit fa-fw', name: 'solid-id-badge-slash') %>
+                  <%= t('organization_memberships.archive.button_title') %>
+                <% end %>
+              <% end %>
+          </li>
+        </ul>
+      </nav>
+    </td>
+  <% end %>
+</tr>

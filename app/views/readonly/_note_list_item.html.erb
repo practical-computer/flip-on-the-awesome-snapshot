@@ -1,0 +1,9 @@
+<%# locals: (note:, show_resource_title: false) -%>
+
+<section id="<%= dom_id(note) %>" class='rounded box-compact stack-compact note-list-item' role="listitem">
+  <% if show_resource_title %>
+    <%= render Organization::NoteResourceTitleComponent.new(note: note) %>
+    <hr>
+  <% end %>
+  <%= render Organization::NoteComponent.new(note: note) %>
+</section>

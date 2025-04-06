@@ -1,0 +1,6 @@
+import './vendor/fontawesome/fontawesome'
+import './vendor/fontawesome/brands'
+import './vendor/fontawesome/custom-icons'
+import './vendor/fontawesome/duotone'
+import './vendor/fontawesome/solid'
+import './vendor/fontawesome/regular'

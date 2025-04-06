@@ -1,0 +1,25 @@
+<%= render Navigation::UserSettingsComponent.new(current_user: current_user) %>
+
+<%= render ApplicationPageComponent.new do |component| %>
+  <% if content_for?(:navigation_header) %>
+    <% component.with_navigation_header do %>
+      <%= yield(:navigation_header) %>
+    <% end %>
+  <% end %>
+
+  <% if content_for?(:navigation) %>
+    <% component.with_navigation do %>
+      <%= yield(:navigation) %>
+    <% end %>
+  <% end %>
+
+  <% if content_for?(:navigation_footer) %>
+    <% component.with_navigation_footer do %>
+      <%= yield(:navigation_footer) %>
+    <% end %>
+  <% end %>
+
+  <% if content_for?(:main_content) %>
+    <%= yield(:main_content) %>
+  <% end %>
+<% end %>

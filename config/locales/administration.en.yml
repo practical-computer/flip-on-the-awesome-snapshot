@@ -1,0 +1,11 @@
+en:
+  administrator:
+    app_title:
+      text: "[INTERNAL] Dispatcher"
+      html: "<code>[INTERNAL] Dispatcher Administration Panel</code>"
+    emergency_passkey_registrations:
+      request_form:
+        title:
+          text: "Can’t log in as an administrator?"
+        description:
+          html: "<p>Not to worry! You can register a new passkey and get back into your admin account</p>"

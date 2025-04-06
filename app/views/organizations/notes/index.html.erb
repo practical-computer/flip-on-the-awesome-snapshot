@@ -1,0 +1,7 @@
+<section class="stack-default">
+  <h1><%= note_icon %> <%= t("dispatcher.notes.title") %></h1>
+
+  <section>
+    <%= render partial: "notes_list", locals: {notes: @organization_notes} %>
+  </section>
+</section>

@@ -1,0 +1,18 @@
+<wa-component-with-fallback>
+  <wa-dropdown data-wa-component caret sync="width">
+    <wa-button appearance="filled outlined" slot="trigger" caret><%= render OrganizationNameComponent.new(organization: current_organization) %></wa-button>
+    <nav class="wa-stack wa-gap-xs dropdown-navigation">
+      <ul class="navigation-list">
+      <% ordered_other_organizations.each do |organization| %>
+        <li><%= link_to(organization_url(organization), class: "undecorated") do %>
+          <%= render OrganizationNameComponent.new(organization: organization) %>
+        <% end %></li>
+      <% end %>
+      </ul>
+    </nav>
+  </wa-dropdown>
+
+  <%= link_to organizations_url, class: "wa-button wa-filled wa-outlined", data: {fallback_component: true} do %>
+    <%= helpers.t("app_navigation.home_section.change_organizations_title") %>
+  <% end %>
+</wa-component-with-fallback>

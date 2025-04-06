@@ -1,0 +1,8 @@
+Description:
+    Create a file for a specific test case seed in Oaken
+
+Example:
+    bin/rails generate oaken:test_case user_pagination
+
+    This will create:
+        db/seeds/test/cases/user_pagination.rb

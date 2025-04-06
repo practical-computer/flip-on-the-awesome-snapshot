@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+class AddWebauthnIdTo<%= table_name.camelize %> < ActiveRecord::Migration<%= migration_version %>
+  def change
+    change_table(:<%= table_name %>) do |t|
+      t.string :webauthn_id, null: false
+      t.index :webauthn_id, unique: true
+    end
+  end
+end

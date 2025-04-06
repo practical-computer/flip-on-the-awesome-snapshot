@@ -1,0 +1,16 @@
+<table>
+  <caption><%= t("membership_invitations.accept_form.details.caption.html") %></caption>
+  <tbody>
+    <tr>
+      <th class='table-label'><%= warehouse_icon %> Organization</th>
+      <td><%= membership_invitation.organization.name %></td>
+    </tr>
+    <tr>
+      <th class='table-label'><%= badge_icon %> Role</th>
+      <td>
+        <%= membership_type_icon(membership_type: membership_invitation.membership_type) %>
+        <%= t("membership_types.#{membership_invitation.membership_type}.human") %>
+      </td>
+    </tr>
+  </tbody>
+</table>

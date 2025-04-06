@@ -1,0 +1,13 @@
+<section class="wa-stack">
+  <header class="wa-cluster">
+    <h2><%= icon_text(icon: icon_set.edit_note_icon, text: t('dispatcher.notes.edit_note.title')) %></h2>
+
+    <section class="wa-callout wa-neutral wa-outlined wa-size-s">
+      <%= render Organization::Note::ResourceLinkComponent.new(note: @form.note) %>
+    </section>
+  </header>
+
+  <section class="note-form">
+    <%= render Forms::NoteFormComponent.new(form: @form) %>
+  </section>
+</section>

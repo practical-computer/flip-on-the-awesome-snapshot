@@ -1,0 +1,108 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "attachment-figure",
+      "attrs": {
+        "attachmentId": "72a115fe-0bbd-4b67-a825-113bd9f3af0a",
+        "caption": "Non-previewable with caption",
+        "progress": 100,
+        "loadingState": "success",
+        "sgid": "eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2Rpc3BhdGNoZXIvT3JnYW5pemF0aW9uOjpBdHRhY2htZW50LzQiLCJleHAiOiIyMDI0LTAyLTA1VDEzOjMyOjU4LjU1OVoiLCJwdXIiOiJyZW5kZXJpbmcifX0=--4525347d83039e23d11a7d9419f5a0452a7e6010",
+        "src": "blob:https://dispatcher.test/cb01fe1d-b4de-4210-bf84-11122d7edac8",
+        "height": "",
+        "width": "",
+        "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "fileName": "example.xlsx",
+        "fileSize": 9058,
+        "content": null,
+        "url": "/uploads/661001ce935ca050e886bde0cf04bf90.xlsx",
+        "previewable": false
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Non-previewable with caption"
+        }
+      ]
+    },
+    {
+      "type": "paragraph"
+    },
+    {
+      "type": "attachment-figure",
+      "attrs": {
+        "attachmentId": "9ea377aa-cf9d-4f86-a28e-a8704e3522b1",
+        "caption": "",
+        "progress": 100,
+        "loadingState": "success",
+        "sgid": "eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2Rpc3BhdGNoZXIvT3JnYW5pemF0aW9uOjpBdHRhY2htZW50LzMiLCJleHAiOiIyMDI0LTAyLTA1VDEzOjMyOjUwLjU3NFoiLCJwdXIiOiJyZW5kZXJpbmcifX0=--254f8d6349990be91a9498d79928bf07cb039e5d",
+        "src": "blob:https://dispatcher.test/30312e3d-cf6c-455e-870a-3bb01036a0e8",
+        "height": "",
+        "width": "",
+        "contentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "fileName": "example.xlsx",
+        "fileSize": 9058,
+        "content": null,
+        "url": "/uploads/6bbbcc18fcc1f9c85698c3711bb2260f.xlsx",
+        "previewable": false
+      }
+    },
+    {
+      "type": "paragraph"
+    },
+    {
+      "type": "previewable-attachment-figure",
+      "attrs": {
+        "attachmentId": "0c57790b-3654-4d25-99b5-3ff192425bdd",
+        "caption": "",
+        "progress": 100,
+        "loadingState": "success",
+        "sgid": "eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2Rpc3BhdGNoZXIvT3JnYW5pemF0aW9uOjpBdHRhY2htZW50LzIiLCJleHAiOiIyMDI0LTAyLTA1VDEzOjMyOjMwLjA2NVoiLCJwdXIiOiJyZW5kZXJpbmcifX0=--784623b95461c37f13e7ffac07c421ac8e76f444",
+        "src": "/uploads/0eb2dfb13b6bd5f7f6a56fa85a88c371.jpeg",
+        "height": 440,
+        "width": 456,
+        "contentType": "image/jpeg",
+        "fileName": "dog.jpeg",
+        "fileSize": 100567,
+        "content": null,
+        "url": "/uploads/0eb2dfb13b6bd5f7f6a56fa85a88c371.jpeg",
+        "previewable": true
+      }
+    },
+    {
+      "type": "paragraph"
+    },
+    {
+      "type": "previewable-attachment-figure",
+      "attrs": {
+        "attachmentId": "b95afc0b-264d-40ba-bd13-d23644bdc8a5",
+        "caption": "Previewable with Caption",
+        "progress": 100,
+        "loadingState": "success",
+        "sgid": "eyJfcmFpbHMiOnsiZGF0YSI6ImdpZDovL2Rpc3BhdGNoZXIvT3JnYW5pemF0aW9uOjpBdHRhY2htZW50LzEiLCJleHAiOiIyMDI0LTAyLTA1VDEzOjMyOjI0LjkwOFoiLCJwdXIiOiJyZW5kZXJpbmcifX0=--a682fc671cdbc3d2c81021d159b78d71f386d2b0",
+        "src": "/uploads/98d4649ffad70c9e590283443fb0552b.jpeg",
+        "height": 440,
+        "width": 456,
+        "contentType": "image/jpeg",
+        "fileName": "dog.jpeg",
+        "fileSize": 100567,
+        "content": null,
+        "url": "/uploads/98d4649ffad70c9e590283443fb0552b.jpeg",
+        "previewable": true
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Previewable with Caption"
+        }
+      ]
+    },
+    {
+      "type": "paragraph"
+    },
+    {
+      "type": "paragraph"
+    }
+  ]
+}

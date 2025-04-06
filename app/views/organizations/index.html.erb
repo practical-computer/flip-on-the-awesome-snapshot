@@ -1,0 +1,15 @@
+<h1><%= icon(style: "fa-duotone fa-fw", name: "swap") %> <%= t("organizations.title") %></h1>
+
+<nav>
+  <ul>
+  <% @organizations.each do |organization| %>
+    <li>
+      <h2>
+        <%= link_to(organization_url(organization)) do %>
+          <%= warehouse_icon %> <%= organization.name %>
+        <% end %>
+      </h2>
+    </li>
+  <% end %>
+  </ul>
+</nav>

@@ -1,0 +1,66 @@
+# frozen_string_literal: true
+<% object_attribute = "self.#{singular_name}" %>
+class <%= form_class_name %>
+  include ActiveModel::API
+  include ActiveModel::Validations::Callbacks
+  include ActionPolicy::Behaviour
+
+  authorize :user, through: :current_user
+  authorize :organization, through: :current_organization
+
+  attr_accessor :current_user, :current_organization, :<%= singular_name %>,
+                <%= attributes_names.map{|x| ":#{x}" }.join(", ") %>
+
+  validates :current_organization, presence: true, allow_blank: false, allow_nil: false
+  validates :current_user, presence: true, allow_blank: false, allow_nil: false
+  validate :can_manage_<%= plural_name %>?
+
+  def initialize(attributes = {})
+    super
+
+<% attributes_names.each do |attribute| %>
+    self.<%= attribute %> ||= <%= object_attribute %>&.<%= attribute %><% end %>
+
+    if <%= object_attribute %>.present?
+      update_existing_<%= singular_name %>
+    else
+      build_new_<%= singular_name %>
+    end
+  end
+
+  def save!
+    validate!
+    <%= object_attribute %>.save!
+  rescue ActiveRecord::RecordInvalid => e
+    self.errors.merge!(e.record.errors)
+    raise e
+  end
+
+  def persisted?
+    <%= object_attribute %>.persisted?
+  end
+
+  def model_name
+    <%= object_attribute %>.model_name
+  end
+
+  def update_existing_<%= singular_name %>
+<% attributes_names.each do |attribute| %>
+    <%= object_attribute %>.<%= attribute %> = self.<%= attribute %> <% end %>
+  end
+
+  def build_new_<%= singular_name %>
+    <%= object_attribute %> = current_organization.<%= plural_name %>.build(
+<% attributes_names.each do |attribute| %>
+      <%= attribute %>: self.<%= attribute %>,<% end %>
+      original_creator: current_user
+    )
+  end
+
+  def can_manage_<%= plural_name %>?
+    policy_check = allowance_to(:manage?, <%= singular_name %>, with: <%= policy_class_name %>)
+    return if policy_check.value
+
+    errors.add(:base, :cannot_manage_<%= plural_name %>)
+  end
+end

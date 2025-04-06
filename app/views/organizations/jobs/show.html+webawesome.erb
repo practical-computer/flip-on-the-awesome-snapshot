@@ -1,0 +1,41 @@
+<section class="wa-stack">
+  <%= render Organization::Job::DetailsComponent.new(job: @organization_job) %>
+
+  <section class="wa-stack">
+    <h3><%= icon_text(icon: icon_set.onsite_icon, text: "Onsites") %></h3>
+
+    <nav class="wa-cluster">
+      <section>
+        <%= link_to(new_organization_job_onsite_url(current_organization, @organization_job), class: "wa-button wa-success") do %>
+          <%= icon_text(icon: icon_set.add_onsite_icon, text: t("dispatcher.onsites.new_onsite.link_title")) %>
+        <% end %>
+      </section>
+    </nav>
+
+    <% if @organization_job.onsites.any? %>
+      <%= render Organization::Onsite::TableComponent.new(onsites: @organization_job.onsites) %>
+    <% else %>
+      <%= render Organization::Job::NoOnsitesComponent.new(job: @organization_job) %>
+    <% end %>
+  </section>
+
+  <section class="wa-stack">
+    <h3><%= icon_text(icon: icon_set.job_task_icon, text: "Job Tasks") %></h3>
+
+    <% if @job_tasks.any? %>
+      <%= render Organization::JobTask::Datatable::JobComponent.new(
+        organization_job: @organization_job,
+        datatable_form: @job_task_datatable_form,
+        job_tasks: @job_tasks,
+        pagy: @pagy,
+        request: request
+      ) do |component| %>
+        <% component.with_add_job_task_dialog_button do %>
+          <%= render Organization::JobTask::AddDialogComponent.new(form: @job_task_form) %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render Organization::Job::NoTasksComponent.new(job_task_form: @job_task_form) %>
+    <% end %>
+  </section>
+</section>

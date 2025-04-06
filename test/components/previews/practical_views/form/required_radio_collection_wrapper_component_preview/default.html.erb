@@ -1,0 +1,6 @@
+<%= webawesome_form_with(model: form, url: "/") do |f| %>
+  <%= f.required_radio_collection_wrapper(:membership_type, "validation-message": form.errors.generate_message(:membership_type, :blank), class: "stack-compact") do %>
+    <%= f.radio_button :membership_type, :organization_manager %>
+    <em>Inside wrapper</em>
+  <% end %>
+<% end %>

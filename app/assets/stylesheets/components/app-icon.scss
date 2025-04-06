@@ -1,0 +1,86 @@
+.app-icon {
+  display: flex;
+  justify-content: center;
+  margin-block-start: var(--spacing-scale-0);
+}
+
+.app-icon svg {
+  height: 1em;
+}
+
+:root, ::backdrop,
+:root[data-theme="light"], :root[data-theme="light"]
+ {
+  --logo-red: var(--salmon-06);
+  --logo-green-light: var(--green-05);
+  --logo-green-shadow: var(--green-06);
+  --logo-sand: var(--sand-09);
+
+  --window-pane-color: var(--green-06);
+  --window-color: var(--logo-red);
+}
+
+.logo svg #window-pane {
+  transition-duration: 0.5s;
+}
+
+
+@media(prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]), :root:not([data-theme="light"]) ::backdrop {
+    --logo-red: oklch(53.34% 0.187 27.02);
+    --logo-green-light: var(--green-04);
+    --logo-green-shadow: var(--green-04);
+    --logo-sand: var(--sand-04);
+
+    --window-pane-color: var(--blue-04);
+    --window-color: var(--logo-red);
+  }
+
+  .logo svg #window-pane {
+    transition-delay: 250ms;
+    transition-duration: 1.3s;
+  }
+}
+
+
+:root[data-theme="dark"], :root[data-theme="dark"] ::backdrop {
+  --logo-red: oklch(53.34% 0.187 27.02);
+  --logo-green: var(--green-04);
+  --logo-sand: var(--sand-04);
+
+  --window-pane-color: var(--blue-04);
+  --window-color: var(--logo-red);
+
+  .logo svg #window-pane {
+    transition-delay: 250ms;
+    transition-duration: 1.3s;
+  }
+}
+
+.app-icon svg {
+  #window {
+    fill: var(--logo-red);
+  }
+
+  #window-pane {
+    fill: var(--window-pane-color)
+  }
+
+  #window {
+    fill: var(--window-color)
+  }
+
+  #tower {
+    fill: var(--logo-sand);
+  }
+
+  #shadow-tower, #shadow-window {
+    fill: var(--logo-green-light);
+  }
+
+  transition: fill 0.5s;
+
+  #window-pane {
+    transition: fill 1.2s cubic-bezier(.34, -0.95, .21, 1.89);;
+  }
+}

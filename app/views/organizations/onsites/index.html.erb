@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Onsites</h1>
+
+<div id="organization_onsites">
+  <% @organization_onsites.each do |organization_onsite| %>
+    <%= render organization_onsite %>
+    <p>
+      <%= link_to "Show this onsite", organization_onsite %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New onsite", new_organization_onsite_path %>

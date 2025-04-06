@@ -1,0 +1,5 @@
+<address class="google-place wa-cluster">
+  <%= render helpers.icon_set.formatted_address_icon %>
+  <span><%= google_place.human_address %></span>
+  <wa-copy-button value="<%= google_place.human_address %>"></wa-copy-button>
+</address>

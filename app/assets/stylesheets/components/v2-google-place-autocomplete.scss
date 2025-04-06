@@ -1,0 +1,5 @@
+google-place-autocomplete {
+  [data-formatted-address-hint]:has(slot[name="formatted_address"]:empty) {
+    display: none;
+  }
+}

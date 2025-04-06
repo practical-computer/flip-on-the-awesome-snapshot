@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class <%= form_class_name %>Test < ActiveSupport::TestCase
+  test "can create a new <%= singular_name %>"
+  test "can update an existing <%= singular_name %>"
+  test "does not change the <%= singular_name %>'s original_creator"
+  test "raises a validation error if <%= attributes_names.first %> is missing"
+  test "raises a ActionPolicy::AuthorizationContextMissing error if the current_user is missing"
+  test "raises a ActionPolicy::AuthorizationContextMissing error if the current_organization is missing"
+  test "raises a validation error if the current_user cannot manage the new <%= singular_name %>"
+  test "raises a validation error if the current_user cannot manage the existing <%= singular_name %>"
+  test "delegates persisted? and model_name to the underlying <%= singular_name %>"
+end

@@ -1,0 +1,39 @@
+<%# locals: (form:, show_resource_title: false) -%>
+
+<%= application_form_with(model: form, url: url_for([form.note, organization_id: current_organization])) do |f| %>
+  <%= f.fieldset do %>
+    <% unless form.persisted? %>
+      <%= f.legend do %>
+        <%= add_note_icon %>
+        <%= t("dispatcher.notes.form.title") %>
+      <% end %>
+    <% end %>
+
+    <% if show_resource_title %>
+      <dl>
+        <dt>For</dt>
+        <dd><%= note_resource_icon(note: form.note) %> <%= note_resource_title(note: form.note) %></dd>
+      </dl>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :tiptap_document do %>
+        <%= notes_icon %> Notes
+      <% end %>
+
+      <%= f.practical_editor_field(:tiptap_document, direct_upload_url: organization_attachments_url(current_organization)) %>
+
+      <%= f.field_errors :tiptap_document %>
+    <% end %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+
+    <% unless form.persisted? %>
+      <%= f.hidden_field :resource_gid %>
+    <% end %>
+
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("dispatcher.notes.form.submit_button_title"), leading_icon: save_icon, type: :submit, html_options: {data: {disable: true}}) %>
+    </section>
+  <% end %>
+<% end %>

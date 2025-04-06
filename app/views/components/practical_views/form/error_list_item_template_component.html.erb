@@ -1,0 +1,3 @@
+<template id='error-list-item-template'>
+  <%= render PracticalViews::Form::ErrorListItemComponent.new(error: ActiveModel::Error.new(nil, nil, nil)) %>
+</template>

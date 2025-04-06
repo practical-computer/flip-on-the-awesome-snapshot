@@ -1,0 +1,20 @@
+<dialog open class='wa-off toast'>
+  <%= tag.section(**finalized_callout_options) do %>
+  <div class="wa-flank:end wa-gap-xs">
+    <% if icon? %>
+      <section class='wa-flank'>
+        <%= icon %>
+        <p><%= content %></p>
+      </section>
+    <% else %>
+      <p><%= content %></p>
+    <% end %>
+
+    <form method="dialog">
+      <%= render PracticalViews::ButtonComponent.new(type: :submit, appearance: :plain, ) do %>
+        <%= render helpers.icon_set.dialog_close_icon %>
+      <% end %>
+    </form>
+  </div>
+  <% end %>
+</dialog>

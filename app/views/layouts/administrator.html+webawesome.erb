@@ -1,0 +1,33 @@
+<% content_for :head do %>
+  <link rel="icon" href="<%= image_url("icons/favicon-admin.ico") %>" sizes="32x32">
+  <link rel="shortcut icon" type="image/png" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="shortcut icon" sizes="192x192" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="apple-touch-icon" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="manifest" href="<%= web_manifest_url %>">
+<% end %>
+
+<% content_for :page_title do %>
+  <%= [t('administrator.app_title.text', app_name: AppSettings.app_name), breadcrumb_trail&.first&.name].join(" | ") %>
+<% end %>
+
+<% content_for :content do %>
+  <%= render ApplicationPageComponent.new do |component| %>
+    <% component.with_header do %>
+      <section class="wa-callout wa-danger wa-stack">
+        <h1><%= icon_text(icon: icon_set.caution_diamond_icon, text: t('administrator.app_title.html', app_name: AppSettings.app_name)) %></h1>
+      </section>
+    <% end %>
+
+    <% component.with_main_header do %>
+      <%= render PracticalViews::FlashMessagesComponent.new %>
+    <% end %>
+
+    <% if content_for?(:main_content) %>
+      <%= yield(:main_content) %>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render template: "layouts/application" %>

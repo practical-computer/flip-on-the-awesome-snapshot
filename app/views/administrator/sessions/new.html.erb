@@ -1,0 +1,36 @@
+<div class="cover" >
+  <section class="stack-compact">
+    <h2>Log in</h2>
+
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <% form_component = SigninFormComponent.new(model: resource,
+                                       as: resource_name,
+                                       url: administrator_session_url,
+                                       challenge_url: administrator_new_session_challenge_url,
+                                       credential_field_name: field_name(resource.model_name.param_key, :passkey_credential)
+                                      )
+    %>
+
+    <%= render form_component  %>
+
+    <nav>
+      <ul class="fa-ul">
+        <% if Flipper.enabled?(:self_service_administrator_emergency_passkey_registration) %>
+          <li>
+            <span class="fa-li"><%= emergency_passkey_registration_icon %></span>
+            <span><%= link_to guided_translate(".emergency_passkey_registrations.prompt"), new_administrator_emergency_passkey_registration_url %></span>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <script type="module">
+      import {startConditionalMediation, submitFormEvent} from '<%= path_to_javascript("session-form") %>'
+      let form = document.getElementById("<%=j form_component.form_id %>")
+
+      startConditionalMediation(form)
+      form.addEventListener('submit', submitFormEvent)
+    </script>
+  </section>
+</div>

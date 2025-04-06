@@ -1,0 +1,16 @@
+<nav class="note-actions">
+  <ul class="cluster-default">
+    <li>
+      <%= link_to edit_organization_note_url(current_organization, note) do %>
+        <%= edit_note_icon %> <%= t("dispatcher.notes.edit_note.link_title") %>
+      <% end %>
+    </li>
+
+    <li>
+      <%= render PracticalFramework::Components::ButtonTo.new( organization_note_url(current_organization, note), method: :delete, class: 'danger', data: {confirm: t("dispatcher.notes.delete_note.confirmation_message") }) do %>
+          <%= delete_note_icon %>
+          <%= t("dispatcher.notes.delete_note.link_title") %>
+        <% end %>
+    </li>
+  </ul>
+</nav>

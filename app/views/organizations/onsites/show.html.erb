@@ -1,0 +1,77 @@
+<section class="stack-default">
+  <header class='cluster-default'>
+    <h1>
+      <%= onsite_icon %> <%= @organization_onsite.label %>
+    </h1>
+
+    <section>
+      <%= render Organization::OnsiteStatusBadge.new(onsite: @organization_onsite) %>
+    </section>
+
+    <section>
+      <%= render Organization::OnsitePriorityBadge.new(onsite: @organization_onsite) %>
+    </section>
+  </header>
+
+  <nav class="cluster-compact">
+    <%= link_to edit_onsite_url(current_organization, @organization_onsite) do %>
+      <%= edit_onsite_icon %> <%= t("dispatcher.onsites.edit_onsite.link_title") %>
+    <% end %>
+  </nav>
+
+  <section>
+    <%= render PracticalFramework::Components::ShareLink.new(
+               url: readonly_onsite_url(@organization_onsite.generate_token_for(:readonly_view)),
+               share_button_title: t('dispatcher.onsites.public_url.share_button.title')
+    ) %>
+  </section>
+
+  <% if @organization_onsite.google_place.present? %>
+    <section class="stack-compact">
+      <h2><%= location_icon %> Address</h2>
+
+      <section class='rounded box-compact stack-compact'>
+        <%= render GooglePlaceComponent.new(google_place: @organization_onsite.google_place) %>
+      </section>
+    </section>
+  <% end %>
+
+  <section class="stack-default notes-list">
+    <h2><%= note_icon %> Notes</h2>
+    <section>
+      <section class="stack-default" role="list">
+        <%= render partial: "organizations/notes/note_list_item", collection: @organization_onsite.notes.chronological, as: :note, locals: {show_resource_title: false} %>
+      </section>
+    </section>
+
+    <section class="add-note-form">
+      <%= render partial: "organizations/notes/form", locals: { form: @note_form, show_resource_title: false } %>
+    </section>
+  </section>
+
+  <section class="stack-compact">
+    <h2><%= job_task_icon %> <%= t('dispatcher.job_tasks.categories.onsite_tasks.title') %></h2>
+
+    <p><%= t('dispatcher.job_tasks.categories.onsite_tasks.description') %></p>
+
+    <%= render Organization::Onsites::TasksDatatableComponent.new(
+      organization_onsite: @organization_onsite,
+      datatable_form: @job_task_datatable_form,
+      job_tasks: @job_tasks,
+      pagy: @pagy,
+      request: request
+    ) %>
+
+    <details class="box-compact stack-compact rounded" open>
+      <summary>
+        <h3><%= details_icon %> <span> <%= add_job_task_icon %> <%= t("dispatcher.job_tasks.job_add_task_section.title") %></span></h3>
+      </summary>
+
+      <div class="details-contents">
+        <section class="add-task-form stack-compact">
+          <%= render partial: "organizations/job_tasks/form", locals: {form: @job_task_form, autofocus: false} %>
+        </section>
+      </div>
+    </details>
+  </section>
+</section>

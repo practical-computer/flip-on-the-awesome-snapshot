@@ -1,0 +1,25 @@
+<section class="wa-stack">
+  <h3><%= icon_text(icon: icon_set.notes_icon, text: "Notes") %></h3>
+
+  <section class="wa-stack" role="list">
+    <% onsite.notes.chronological.each do |note| %>
+      <%= render V2::Organization::NoteComponent.new(note: note) do |component| %>
+        <% component.with_actions do %>
+          <section class="wa-size-s wa-split">
+            <%= link_to edit_organization_note_url(current_organization, note), class: "wa-button" do %>
+              <%= icon_text(icon: icon_set.notes_icon, text: t("dispatcher.notes.edit_note.link_title")) %>
+            <% end %>
+
+            <%= button_to(organization_note_url(current_organization, note), method: :delete, class: 'wa-danger', data: {confirm: t("dispatcher.notes.delete_note.confirmation_message") }) do %>
+              <%= icon_text(icon: icon_set.delete_note_icon, text: t("dispatcher.notes.delete_note.link_title")) %>
+            <% end %>
+          </section>
+        <% end %>
+      <% end %>
+    <% end %>
+  </section>
+
+  <section class="add-note-form">
+    <%= render Forms::Onsite::AddNoteFormComponent.new(form: note_form) %>
+  </section>
+</section>

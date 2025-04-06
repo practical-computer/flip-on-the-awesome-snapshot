@@ -1,0 +1,9 @@
+.note-list-item {
+  > header + hr {
+    inline-size: 100%;
+  }
+
+  nav.note-actions ul {
+    list-style: none;
+  }
+}

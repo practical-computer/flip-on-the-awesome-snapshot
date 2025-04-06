@@ -1,0 +1,12 @@
+.error-section:not(:has(li)) {
+  display: none;
+}
+
+.error-section:has(li) {
+  display: block;
+}
+
+.error-list {
+  margin: 0;
+  list-style: none;
+}

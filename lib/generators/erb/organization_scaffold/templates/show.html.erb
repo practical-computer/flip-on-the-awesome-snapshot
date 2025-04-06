@@ -1,0 +1,13 @@
+<section class="stack-default">
+  <header class='cluster-default'>
+    <h1>
+      <%%= <%= singular_name %>_icon %> <%%= @organization_<%=singular_name%>.name %>
+    </h1>
+  </header>
+
+  <nav class="cluster-compact">
+    <%%= link_to edit_organization_<%= singular_name %>_url(current_organization, @organization_<%=singular_name%>) do %>
+      <%%= edit_<%= singular_name %>_icon %> <%%= t("dispatcher.<%= plural_name %>.edit_<%= singular_name %>.link_title") %>
+    <%% end %>
+  </nav>
+</section>

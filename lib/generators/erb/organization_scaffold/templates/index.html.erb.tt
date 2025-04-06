@@ -1,0 +1,13 @@
+<section class="stack-default">
+  <h1><%%= <%= "#{singular_name}_icon" %> %> <%%= t("dispatcher.<%= "#{plural_name}" %>.title") %></h1>
+
+  <nav class="cluster-compact">
+    <%%= link_to <%= new_helper(type: :url) %> do %>
+      <%%= <%= "add_#{singular_name}_icon" %> %> <%%= t("dispatcher.<%= "#{plural_name}" %>.new_<%= "#{singular_name}" %>.link_title") %>
+    <%% end %>
+  </nav>
+
+  <section>
+    <%%= render partial: "<%= "#{plural_name}" %>_table", locals: {<%= plural_name %>: @organization_<%= plural_name%>} %>
+  </section>
+</section>

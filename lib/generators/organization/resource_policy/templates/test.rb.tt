@@ -1,0 +1,99 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class <%= policy_class_name %>PolicyTest < ActiveSupport::TestCase
+  def policy_for(user:, organization:, <%= singular_name %>:)
+    <%= policy_class_name %>.new(<%= singular_name %>, user: user, organization: organization)
+  end
+
+  def relation_policy_for(user:, organization:)
+    <%= policy_class_name %>.new(nil, user: user, organization: organization)
+  end
+
+  alias_method :create_policy_for, :relation_policy_for
+
+  test "create?: only true if the OrganizationPolicy.show? is true" do
+    organization_1 = organizations.organization_1
+    organization_2 = organizations.organization_2
+
+    user_organization_1_only = users.user_1
+    user_organization_2_only = users.user_2
+    user_both_organizations = users.both_organizations
+    archived_member = users.archived_member
+    archived_admin = users.archived_admin
+
+    assert_equal true, create_policy_for(user: user_organization_1_only, organization: organization_1).apply(:create?)
+    assert_equal true, create_policy_for(user: user_both_organizations, organization: organization_1).apply(:create?)
+
+    assert_equal true,  create_policy_for(user: user_both_organizations, organization: organization_2).apply(:create?)
+    assert_equal false, create_policy_for(user: user_organization_1_only, organization: organization_2).apply(:create?)
+
+    assert_equal false, create_policy_for(user: archived_admin, organization: organization_1).apply(:create?)
+    assert_equal false, create_policy_for(user: archived_member, organization: organization_1).apply(:create?)
+  end
+
+  test "manage?: checks the instance provided" do
+    organization_1 = organizations.organization_1
+    organization_2 = organizations.organization_2
+
+    user_organization_1_only = users.user_1
+    user_organization_2_only = users.user_2
+    user_both_organizations = users.both_organizations
+    archived_member = users.archived_member
+    archived_admin = users.archived_admin
+<% org_1_record = "#{singular_name}_for_organization_1"
+org_2_record = "#{singular_name}_for_organization_2" %>
+    <%= org_1_record %> = organization_<%= plural_name %>.<%= org_1_record %>
+    <%= org_2_record %> = organization_<%= plural_name %>.<%= org_2_record %>
+
+    assert_equal true, policy_for(<%= singular_name %>: <%= org_1_record %>, user: user_organization_1_only, organization: organization_1).apply(:manage?)
+    assert_equal true, policy_for(<%= singular_name %>: <%= org_1_record %>, user: user_both_organizations, organization: organization_1).apply(:manage?)
+
+    assert_equal true,  policy_for(<%= singular_name %>: <%= org_2_record %>, user: user_both_organizations, organization: organization_2).apply(:manage?)
+    assert_equal false, policy_for(<%= singular_name %>: <%= org_2_record %>, user: user_organization_1_only, organization: organization_2).apply(:manage?)
+
+    assert_equal false, policy_for(<%= singular_name %>: <%= org_1_record %>, user: archived_admin, organization: organization_1).apply(:manage?)
+    assert_equal false, policy_for(<%= singular_name %>: <%= org_1_record %>, user: archived_member, organization: organization_1).apply(:manage?)
+  end
+
+  test "relation only returns the <%= plural_name %> that are part of the same organization" do
+    organization_1 = organizations.organization_1
+    organization_2 = organizations.organization_2
+
+    user_organization_1_only = users.user_1
+    user_organization_2_only = users.user_2
+    user_both_organizations = users.both_organizations
+
+    assert_equal_set(
+      organization_1.<%= plural_name %>,
+      relation_policy_for(
+        user: user_organization_1_only,
+        organization: organization_1
+      ).apply_scope(Organization::<%= class_name %>.all, type: :active_record_relation)
+    )
+
+    assert_equal_set(
+      organization_2.<%= plural_name %>,
+      relation_policy_for(
+        user: user_organization_2_only,
+        organization: organization_2
+      ).apply_scope(Organization::<%= class_name %>.all, type: :active_record_relation)
+    )
+
+    assert_equal_set(
+      organization_2.<%= plural_name %>,
+      relation_policy_for(
+        user: user_both_organizations,
+        organization: organization_2
+      ).apply_scope(Organization::<%= class_name %>.all, type: :active_record_relation)
+    )
+
+    assert_empty(
+      relation_policy_for(
+        user: user_organization_1_only,
+        organization: organization_2
+      ).apply_scope(Organization::<%= class_name %>.all, type: :active_record_relation)
+    )
+  end
+end

@@ -1,0 +1,19 @@
+<div class="cover" >
+  <section class="stack-default">
+    <%= render partial: "registration_form" %>
+
+    <nav>
+      <ul class="fa-ul">
+        <li>
+          <span class="fa-li"><%= signin_icon %></span>
+          <span><%= link_to guided_translate(".signin.prompt"), new_user_session_url %>
+          </span>
+        </li>
+        <li>
+          <span class="fa-li"><%= emergency_passkey_registration_icon %></span>
+          <span><%= link_to guided_translate(".emergency_passkey_registrations.prompt"), new_user_emergency_passkey_registration_url %></span>
+        </li>
+      </ul>
+    </nav>
+  </section>
+</div>

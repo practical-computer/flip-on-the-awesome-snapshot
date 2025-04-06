@@ -1,0 +1,77 @@
+<%= practical_form_with(
+      model: form,
+      url: create_user_and_use_membership_invitation_url(params[:id]),
+      local: false,
+      id: dom_id(form, :registration_form),
+      "aria-describedby": dom_id(form, :generic_errors),
+      method: :post,
+      data: {
+        "challenge_url": new_create_challenge_membership_invitation_url(params[:id]),
+        "credential_field_name": field_name(form.model_name.param_key, :passkey_credential)
+      },
+      builder: PracticalFramework::FormBuilders::Base,
+      class: "stack-compact"
+) do |f| %>
+  <%= f.fieldset do %>
+    <%= f.legend do %>
+      <%= signup_icon %>
+      <%= t("user_settings.registration.form.title") %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :email do %>
+        <%= icon(style: 'fa-solid', name: 'at') %>
+        Email
+      <% end %>
+
+      <%= f.email_field(:email, placeholder: t("practical_framework.forms.placeholders.email"),
+                                autofocus: true,
+                                autocomplete: "username webauthn",
+                                required: true,
+                                data: {"focusout-validation": true}
+                       )
+      %>
+
+      <%= f.field_errors :email %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :name do %>
+        <%= icon(style: 'fa-solid', name: 'hand-wave') %>
+        Name
+      <% end %>
+
+      <%= f.text_field(:name, placeholder: t("practical_framework.forms.placeholders.name"),
+                                autofocus: true,
+                                autocomplete: "name",
+                                required: true,
+                                data: {"focusout-validation": true}
+                       )
+      %>
+
+      <%= f.field_errors :name %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :passkey_label do %>
+        <%= t("practical_framework.forms.input_label.html", icon: icon(style: "fa-solid", name: "tag"), text: "Passkey label") %>
+      <% end %>
+      <%= f.text_field :passkey_label, placeholder: "iCloud Keychain", required: true, data: {"focusout-validation": true} %>
+
+      <%= f.field_errors :passkey_label %>
+    <% end %>
+
+    <%= f.hidden_field :passkey_credential %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("membership_invitations.new_user_from_invitation_form.submit_button_title"), leading_icon: passkey_icon, type: :submit, html_options: {data: {disable: true}}, classes: :success) %>
+    </section>
+  <% end %>
+<% end %>
+
+<script type="module">
+  import {submitFormEvent} from 'registration_form'
+  document.getElementById(`<%= dom_id(form, :registration_form) %>`).addEventListener('submit', submitFormEvent)
+</script>

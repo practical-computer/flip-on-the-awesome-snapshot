@@ -1,0 +1,6 @@
+<section class="wa-stack">
+  <h2 class="wa-cluster">
+    <%= icon_text(icon: icon_set.add_onsite_icon, text: t('dispatcher.onsites.new_onsite.title')) %>
+  </h2>
+  <%= render Forms::OnsiteFormComponent.new(form: @form) %>
+</section>

@@ -1,0 +1,113 @@
+<%# locals: (form:, autofocus: true) -%>
+
+<%
+  if form.persisted?
+    url = job_task_url(current_organization, id: form.job_task)
+  else
+    url = organization_job_tasks_url(current_organization, form.job)
+  end
+%>
+
+<%= application_form_with(model: form, url: url) do |f| %>
+  <%= f.fieldset do %>
+    <%= f.legend do %>
+      <%= job_task_icon %>
+      <%= t("dispatcher.job_tasks.form.title") %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :label do %>
+        <%= job_task_label_icon %> Task
+      <% end %>
+
+      <%= f.text_field(:label, placeholder: t("dispatcher.placeholders.job_task_label"),
+        autofocus: autofocus,
+        autocomplete: "none",
+        required: true,
+        data: {"focusout-validation": true}
+                       ) %>
+
+      <%= f.field_errors :label %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :onsite do %>
+        <%= onsite_icon %> Assigned to onsite
+      <% end %>
+
+      <%= f.select(:onsite, onsite_options(onsites: form.available_onsites, selected_onsite: form.onsite), data: {"focusout-validation": true}) %>
+
+      <%= f.field_errors :onsite %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <% estimated_duration_popover_id = dom_id(form, :estimated_duration_popover) %>
+      <div class="cluster-compact">
+        <%= f.label :estimated_duration do %>
+          <%= estimated_duration_icon %> Estimated Duration
+        <% end %>
+
+        <% title = t("dispatcher.job_tasks.form.estimated_duration_popover.title") %>
+        <%= render PracticalFramework::Components::PopoverButton.new(title: title,
+                                                          leading_icon: info_icon,
+                                                          type: :button,
+                                                          html_options: {
+                                                            popovertarget: estimated_duration_popover_id,
+                                                          }
+                                                        )
+        %>
+      </div>
+
+      <anchored-popover id="<%= estimated_duration_popover_id %>" popover placement="top">
+        <div data-arrow></div>
+        <section data-popover-content class="rounded box-compact stack-compact compact-size compact-font">
+          <dl>
+            <%= t("dispatcher.job_tasks.form.estimated_duration_popover.default_example_html") %>
+            <%= t("dispatcher.job_tasks.form.estimated_duration_popover.minutes_only_html") %>
+            <%= t("dispatcher.job_tasks.form.estimated_duration_popover.hours_only_html") %>
+          </dl>
+        </section>
+      </anchored-popover>
+
+      <%= f.text_field(:estimated_duration, placeholder: t("dispatcher.placeholders.estimated_duration"),
+        autocomplete: "none",
+        required: true,
+        data: {"focusout-validation": true}
+                       ) %>
+
+      <%= f.field_errors :estimated_duration %>
+    <% end %>
+
+    <%= f.fieldset("aria-required": true, id: f.field_id(:status)) do %>
+      <%= f.legend do %>
+        <%= status_icon %> Status
+        <%= f.field_errors(:status, class: 'visually-hidden', id: f.field_id(:status, :errors_aria)) %>
+      <% end %>
+
+      <%= f.required_radio_collection_wrapper(:status, "validation-message": form.job_task.errors.generate_message(:status, :blank), class: "stack-compact") do %>
+        <%= f.radio_collection(field_method: :status, options: job_task_status_options) %>
+      <% end %>
+
+      <%= f.field_errors :status, "aria-hidden": true, id: f.field_id(:status, :errors) %>
+    <% end %>
+
+    <%= f.fieldset("aria-required": true, id: f.field_id(:task_type)) do %>
+      <%= f.legend do %>
+        <%= job_task_type_label_icon %> Task Type
+        <%= f.field_errors(:task_type, class: 'visually-hidden', id: f.field_id(:task_type, :errors_aria)) %>
+      <% end %>
+
+      <%= f.required_radio_collection_wrapper(:task_type, "validation-message": form.job_task.errors.generate_message(:task_type, :blank), class: "stack-compact") do %>
+        <%= f.radio_collection(field_method: :task_type, options: job_task_type_options) %>
+      <% end %>
+
+      <%= f.field_errors :task_type, "aria-hidden": true, id: f.field_id(:task_type, :errors) %>
+    <% end %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("dispatcher.job_tasks.form.submit_button_title"), leading_icon: save_icon, type: :submit, html_options: {data: {disable: true}}) %>
+    </section>
+  <% end %>
+<% end %>

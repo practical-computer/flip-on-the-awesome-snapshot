@@ -1,0 +1,9 @@
+<section class="wa-stack">
+  <%= render Organization::Job::DatatableComponent.new(
+      datatable_form: @datatable_form,
+      jobs: @organization_jobs,
+      pagy: @pagy,
+      request: request
+    )
+  %>
+</section>

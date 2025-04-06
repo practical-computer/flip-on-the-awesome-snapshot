@@ -1,0 +1,7 @@
+<%= render(PracticalViews::ModalDialogComponent.new(id: :testing, open: true)) do |component| %>
+  <% component.with_header do %>
+    Dialog header
+  <% end %>
+
+  <p>The dialog content</p>
+<% end %>

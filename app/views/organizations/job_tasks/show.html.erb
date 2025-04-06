@@ -1,0 +1,20 @@
+<section class="stack-default">
+  <header class='cluster-default'>
+    <h1>
+      <%= job_task_icon %> <%= @organization_job_task.label %>
+    </h1>
+  </header>
+
+  <nav class="cluster-compact">
+    <%= link_to edit_job_task_url(current_organization, @organization_job_task) do %>
+      <%= edit_job_task_icon %> <%= t("dispatcher.job_tasks.edit_job_task.link_title") %>
+    <% end %>
+  </nav>
+
+  <dl>
+    <dt><%= onsite_icon %> Onsite</dt>
+    <dd>
+      <%= job_task_onsite_label(job_task: @organization_job_task) %>
+    </dd>
+  </dl>
+</section>

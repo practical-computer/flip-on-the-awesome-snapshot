@@ -1,0 +1,14 @@
+<%= render PracticalViews::OpenDialogButtonComponent.new(dialog_id: dialog_id, appearance: :success) do %>
+  <%= render icon_set.add_job_task_icon %>
+  <%= t("dispatcher.job_tasks.job_add_task_section.title") %>
+<% end %>
+
+<%= render PracticalViews::ModalDialogComponent.new(id: dialog_id) do |component| %>
+  <% component.with_header do %>
+    <%= t("dispatcher.job_tasks.job_add_task_section.title") %>
+  <% end %>
+
+  <section class="add-task-form">
+    <%= render Forms::JobTaskFormComponent.new(form: form) %>
+  </section>
+<% end %>

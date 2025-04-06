@@ -1,0 +1,31 @@
+<% content_for :head do %>
+  <link rel="icon" href="<%= image_url("icons/favicon-admin.ico") %>" sizes="32x32">
+  <link rel="shortcut icon" type="image/png" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="shortcut icon" sizes="192x192" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="apple-touch-icon" href="<%= image_url("icons/apple-touch-icon-admin.png") %>">
+  <link rel="manifest" href="<%= web_manifest_url %>">
+<% end %>
+
+<% content_for :page_title do %>
+  <%= [t('administrator.app_title.text', app_name: AppSettings.app_name), breadcrumb_trail&.first&.name].join(" | ") %>
+<% end %>
+
+<% content_for :content do %>
+  <div class="app-chrome administrator">
+    <header class='box-compact'>
+      <h1>
+        <%= icon(style: 'fa-duotone', name: "diamond-exclamation") %>
+        <%= t('administrator.app_title.html', app_name: AppSettings.app_name) %>
+      </h1>
+    </header>
+    <main>
+      <%= render PracticalFramework::Components::FlashMessages.new(flash: flash) %>
+      <%= yield %>
+    </main>
+    <footer>
+
+    </footer>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>

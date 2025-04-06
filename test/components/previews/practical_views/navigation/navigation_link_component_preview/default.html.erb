@@ -1,0 +1,10 @@
+<%= render(PracticalViews::Navigation::NavigationLinkComponent.new(
+      href: "example.com",
+      selected: selected
+)) do |component| %>
+  <% component.with_icon do %>
+    <%= render icon_set.user_icon %>
+  <% end %>
+
+  Hello World
+<% end %>

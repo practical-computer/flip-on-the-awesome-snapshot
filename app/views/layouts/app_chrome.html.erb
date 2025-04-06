@@ -1,0 +1,46 @@
+<% if AppSettings.posthog_session_recording? && user_signed_in? %>
+  <% content_for(:head) do %>
+    <%= render partial: "layouts/snippets/posthog_session_recording_script_tag" %>
+  <% end %>
+<% end %>
+
+<% content_for :head do %>
+  <link rel="icon" href="<%= image_url("icons/favicon.ico") %>" sizes="32x32">
+  <link rel="shortcut icon" type="image/png" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="shortcut icon" sizes="192x192" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="apple-touch-icon" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="manifest" href="<%= web_manifest_url %>">
+<% end %>
+
+<% content_for :page_title do %>
+  <%= [t('app_title.text', app_name: AppSettings.app_name), breadcrumb_trail&.first&.name].compact.join(" | ") %>
+<% end %>
+
+<% content_for :content do %>
+  <div class="app-chrome">
+    <header class='cluster-compact'>
+      <section class="box-compact no-border">
+        <h1 class="cluster-default" style="--align:flex-end;">
+          <i class="app-icon"><%= app_icon %></i>
+          <%= t('app_title.html', app_name: AppSettings.app_name) %>
+        </h1>
+        <nav>
+          <%= render PracticalFramework::Components::Breadcrumbs.new(breadcrumb_trail: breadcrumb_trail) %>
+        </nav>
+      </section>
+      <%= render PracticalFramework::Components::FlashMessages.new(flash: flash) %>
+    </header>
+    <main>
+      <% if content_for?(:main_content) %>
+        <%= yield(:main_content) %>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </main>
+    <footer>
+
+    </footer>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>

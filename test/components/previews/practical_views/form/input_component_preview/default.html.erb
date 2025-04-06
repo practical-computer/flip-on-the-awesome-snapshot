@@ -1,0 +1,11 @@
+<%= webawesome_form_with(model: form, url: "/") do |f| %>
+  <%= render PracticalViews::Form::InputComponent.new(f: f, object_method: :name) do |component| %>
+    <% component.with_label do %>
+      <%= f.field_title(icon: icon_set.user_icon, title: "Job Name") %>
+    <% end %>
+
+    <% component.with_field do %>
+      <%= f.text_field :name, placeholder: "My new name" %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,9 @@
+Description:
+    Generates a new policy, inheriting from `OrganizationResourcePolicy`
+
+Example:
+    bin/rails generate resource_policy Note
+
+    This will create:
+        app/policies/organization/note_policy.rb
+        test/policies/organization/note_policy_test.rb

@@ -1,0 +1,70 @@
+<%= render PracticalViews::Datatable::FilterSectionComponent.new do |component| %>
+  <% component.with_open_filters_button do %>
+    <%= render PracticalViews::OpenDialogButtonComponent.new(dialog_id: dialog_id, appearance: dialog_button_appearance) do %>
+      <%= render filter_icon %>
+      <%= t("dispatcher.jobs.datatable_form.title") %>
+    <% end %>
+  <% end %>
+
+  <% if datatable_form.filters.job_name.present? %>
+    <% component.with_applied_filter do |applied_filter| %>
+      <% applied_filter.with_title {
+        t("dispatcher.jobs.datatable_form.filtered_name")
+      } %>
+
+      <wa-tag><%= datatable_form.filters.job_name %></wa-tag>
+    <% end %>
+  <% end %>
+
+  <% component.with_applied_filter do |applied_filter| %>
+    <% applied_filter.with_title {
+      t("dispatcher.jobs.datatable_form.filtered_statuses")
+    } %>
+
+    <section>
+      <% datatable_form.filters.status.each do |status| %>
+        <%= render Organization::Job::StatusBadgeComponent.new(status: status) %>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>
+
+<%= render PracticalViews::ModalDialogComponent.new(id: dialog_id) do |component| %>
+
+  <% component.with_header do %>
+    <%= t("dispatcher.jobs.datatable_form.title") %>
+  <% end %>
+
+  <%= helpers.webawesome_form_with(model: datatable_form, scope: :datatable, url: url, local: true, method: :get) do |f| %>
+    <section class="wa-stack">
+      <%= f.hidden_field :sort_key %>
+      <%= f.hidden_field :sort_direction %>
+      <%= f.fields_for :filters, datatable_form.filters do |filter_fields| %>
+        <%= filter_fields.fieldset("aria-required": true, id: filter_fields.field_id(:status)) do %>
+          <%= filter_fields.legend do %>
+            <%= render helpers.icon_set.status_icon %> Status
+            <%= filter_fields.field_errors(:status, class: 'visually-hidden', id: filter_fields.field_id(:status, :errors_aria)) %>
+          <% end %>
+
+          <%= filter_fields.check_box_collection(field_method: :status, options: helpers.v2_job_status_options, collection_check_boxes_options: {include_hidden: false}) %>
+        <% end %>
+
+        <%= filter_fields.input_component(:name) do |component| %>
+          <% component.with_label do %>
+            <%= filter_fields.field_title(icon: helpers.icon_set.job_name_icon, title: "Name") %>
+          <% end %>
+
+          <% component.with_field do %>
+            <%= filter_fields.search_field :job_name %>
+          <% end %>
+        <% end %>
+
+        <section>
+          <%= f.button_component(type: :submit, options: {data: {disable: true}}) do %>
+            <%= helpers.icon_text(icon: helpers.icon_set.apply_filters_icon, text: t("dispatcher.datatable.form.submit_button_title")) %>
+          <% end %>
+        </section>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

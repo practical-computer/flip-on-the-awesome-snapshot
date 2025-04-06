@@ -1,0 +1,7 @@
+<%= render PracticalViews::Navigation::BreadcrumbItemComponent.new do |component| %>
+  <% component.with_prefix do %>
+    <%= render icon_set.home_icon %>
+  <% end %>
+
+  Home
+<% end %>

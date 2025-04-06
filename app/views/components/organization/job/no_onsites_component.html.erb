@@ -1,0 +1,9 @@
+<section class="wa-callout wa-neutral">
+  <strong>There are no onsites for this job yet</strong>
+
+  <p>Onsites help you plan the work, and specify the tasks for technicians to tackle</p>
+
+  <%= link_to(new_organization_job_onsite_url(current_organization, job), class: "wa-button wa-success") do %>
+    <%= icon_text(icon: icon_set.add_onsite_icon, text: t("dispatcher.onsites.new_onsite.link_title")) %>
+  <% end %>
+</section>

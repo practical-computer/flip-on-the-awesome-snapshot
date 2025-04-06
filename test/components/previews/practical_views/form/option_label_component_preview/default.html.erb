@@ -1,0 +1,9 @@
+<%= render PracticalViews::Form::OptionLabelComponent.new do |component| %>
+  <% component.with_title do %>
+    <%= icon_text(icon: icon_set.user_icon, text: "User") %>
+  <% end %>
+
+  <% component.with_description do %>
+    A description of the item we're looking at
+  <% end %>
+<% end %>

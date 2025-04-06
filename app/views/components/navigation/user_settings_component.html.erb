@@ -1,0 +1,80 @@
+<% content_for(:navigation_header) do %>
+  <%= render UserNameComponent.new(user: current_user) %>
+<% end %>
+
+<% content_for(:navigation) do %>
+  <nav>
+    <ul class="navigation-list">
+      <li>
+        <%= render Navigation::NavigationLinkComponent.new(
+          href: organizations_url,
+          selected: (:organizations == helpers.main_application_navigation_link_key)
+        ) do |component| %>
+          <% component.with_icon do %>
+            <%= render helpers.icon_set.organization_icon %>
+          <% end %>
+
+          <%= helpers.t("app_navigation.user_settings.organizations") %>
+        <% end %>
+      </li>
+      <wa-divider></wa-divider>
+      <li>
+        <%= render Navigation::NavigationLinkComponent.new(
+          href: edit_user_registration_url,
+          selected: (:user_profile == helpers.main_application_navigation_link_key)
+        ) do |component| %>
+          <% component.with_icon do %>
+            <%= render helpers.icon_set.profile_icon %>
+          <% end %>
+
+          <%= helpers.t("app_navigation.user_settings.profile_title") %>
+        <% end %>
+      </li>
+      <li>
+        <%= render Navigation::NavigationLinkComponent.new(
+          href: user_memberships_url,
+          selected: (:user_memberships == helpers.main_application_navigation_link_key)
+        ) do |component| %>
+          <% component.with_icon do %>
+            <%= render helpers.icon_set.memberships_icon %>
+          <% end %>
+
+          <%= helpers.t("app_navigation.user_settings.memberships_title") %>
+        <% end %>
+      </li>
+
+      <wa-divider></wa-divider>
+
+      <li>
+        <%= render Navigation::NavigationLinkComponent.new(
+          href: destroy_user_session_url,
+          selected: nil
+        ) do |component| %>
+          <% component.with_icon do %>
+            <%= render helpers.icon_set.signout_icon %>
+          <% end %>
+
+          <%= helpers.t("app_navigation.user_settings.signout_title") %>
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+<% end %>
+
+<% if (:organizations != helpers.main_application_navigation_link_key) %>
+  <% content_for(:navigation_footer) do %>
+    <%= render Navigation::NavigationLinkComponent.new(
+      href: organizations_url,
+      selected: false,
+      options:{
+        class: "wa-button wa-filled wa-outlined"
+      }
+    ) do |component| %>
+      <% component.with_icon do %>
+        <%= render helpers.icon_set.previous_arrow %>
+      <% end %>
+
+      <%= helpers.t("app_navigation.user_settings.back_to_organizations") %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,59 @@
+<section class='wa-stack'>
+  <nav class="wa-cluster">
+    <section>
+      <%= link_to new_organization_job_url(helpers.current_organization), class: "wa-button wa-brand" do %>
+        <%= helpers.icon_text(icon: helpers.icon_set.add_job_icon, text: t("dispatcher.jobs.new_job.link_title")) %>
+      <% end %>
+    </section>
+    <%= render Organization::Job::Datatable::FilterComponent.new(datatable_form: datatable_form, url: organization_jobs_url(helpers.current_organization)) %>
+  </nav>
+  <% if jobs.any? %>
+    <table class="jobs">
+      <col class="table-label">
+      <col span="3">
+      <thead>
+        <tr>
+          <th class="table-label" scope="col">
+            <%= sort_link_for(key: "name") do %>
+              <%= helpers.icon_text(icon: helpers.icon_set.job_name_icon, text: "Name") %>
+            <% end %>
+          </th>
+          <th class="table-label" scope="col">
+            <%= sort_link_for(key: "status") do %>
+              <%= helpers.icon_text(icon: helpers.icon_set.status_icon, text: "Status") %>
+            <% end %>
+          </th>
+          <th class="table-label" scope="col">
+            <%= helpers.icon_text(icon: helpers.icon_set.job_task_icon, text: "Tasks") %>
+          </th>
+          <th class="table-label" scope="col">
+            <%= helpers.icon_text(icon: helpers.icon_set.onsite_icon, text: "Onsites") %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% jobs.each do |job| %>
+        <tr>
+          <td>
+            <%= link_to organization_job_url(helpers.current_organization, job) do %>
+              <%= job.name %>
+            <% end %>
+          </td>
+          <td><%= render Organization::Job::StatusBadgeComponent.new(status: job.status) %></td>
+          <td>
+            <section class="wa-size-s">
+              <%= render Organization::JobTasksSummaryComponent.new(job_tasks: job.tasks) %>
+            </section>
+          </td>
+          <td>
+            <section class="wa-size-s">
+              <%= render Organization::OnsitesSummaryComponent.new(onsites: job.onsites) %></td>
+            </section>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <%= render pagination_component %>
+</section>

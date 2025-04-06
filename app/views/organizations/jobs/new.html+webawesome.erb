@@ -1,0 +1,5 @@
+<section class="wa-stack">
+  <h2><%= icon_text(icon: icon_set.add_job_icon, text: t('dispatcher.jobs.new_job.title')) %></h2>
+
+  <%= render Forms::JobFormComponent.new(form: @form) %>
+</section>

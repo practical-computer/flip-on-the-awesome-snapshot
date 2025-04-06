@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= link_to onsite_url(current_organization, onsite) do %>
+      <%= onsite.label %>
+    <% end %>
+  </td>
+
+  <td>
+    <%= render Organization::OnsiteStatusBadge.new(onsite: onsite) %>
+  </td>
+
+  <td>
+    <% cache([onsite, onsite.tasks_updated_at, :tasks_summary_component]) do %>
+      <%= render Organization::JobTasks::SummaryComponent.new(job_tasks: onsite.tasks) %>
+    <% end %>
+  </td>
+
+  <td>
+    <%= link_to readonly_onsite_url(onsite.generate_token_for(:readonly_view)), target: "_blank" do %>
+      <%= share_icon %> <%= t('dispatcher.onsites.public_url.title') %>
+    <% end %>
+  </td>
+</tr>

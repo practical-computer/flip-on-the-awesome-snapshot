@@ -1,0 +1,34 @@
+<%# locals: (datatable_form:, url: organization_jobs_url(current_organization)) -%>
+
+<%= render Navigation::DatatableFilterWrapperComponent.new(datatable_params: params["datatable"],
+                                                           title: t("dispatcher.jobs.datatable_form.title")
+                                                          ) do
+%>
+  <%= application_form_with(model: datatable_form, scope: :datatable, url: url, local: true, method: :get) do |f| %>
+    <%= f.hidden_field :sort_key %>
+    <%= f.hidden_field :sort_direction %>
+    <%= f.fields_for :filters, datatable_form.filters do |filter_fields| %>
+      <%= f.fieldset("aria-required": true, id: f.field_id(:status)) do %>
+        <%= f.legend do %>
+          <%= status_icon %> Status
+          <%= f.field_errors(:status, class: 'visually-hidden', id: f.field_id(:status, :errors_aria)) %>
+        <% end %>
+
+        <%= filter_fields.check_box_collection(field_method: :status, options: job_status_options, collection_check_boxes_options: {include_hidden: false}) %>
+      <% end %>
+
+      <%= f.input_wrapper do %>
+        <%= f.label :name do %>
+          <%= job_name_icon %> Name
+        <% end %>
+
+        <%= filter_fields.search_field :job_name %>
+      <% end %>
+
+      <section>
+        <%= render PracticalFramework::Components::StandardButton.new(title: t("dispatcher.datatable.form.submit_button_title"), leading_icon: apply_filters_icon, type: :submit, html_options: {data: {disable: true}}) %>
+      </section>
+    <% end %>
+  <% end %>
+
+<% end %>

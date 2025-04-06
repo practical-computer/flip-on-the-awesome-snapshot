@@ -1,0 +1,5 @@
+<section class="stack-default">
+  <h1><%= add_note_icon %> <%= t('dispatcher.notes.new_note.title') %></h1>
+
+  <%= render partial: "form", locals: { form: @form, show_resource_title: true }%>
+</section>

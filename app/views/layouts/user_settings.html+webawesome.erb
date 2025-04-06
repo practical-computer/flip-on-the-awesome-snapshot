@@ -1,0 +1,13 @@
+<%= render Navigation::UserSettingsComponent.new(
+  current_user: current_user
+) %>
+
+<% content_for :main_content do %>
+  <%= yield%>
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag "v2-application", type: :module %>
+<% end %>
+
+<%= render template: "layouts/app_chrome" %>

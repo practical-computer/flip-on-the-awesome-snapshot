@@ -1,0 +1,115 @@
+<% module_namespacing do -%>
+class <%= controller_class_name %>Controller < ApplicationController
+  before_action :check_<%= plural_table_name %>_authorization, only: %i[index]
+  before_action :load_<%= plural_table_name %>, only: %i[index]
+
+  before_action :check_<%= singular_table_name %>_authorization, only: %i[ show edit update destroy ]
+  before_action :load_<%= singular_table_name %>, only: %i[ show edit update destroy ]
+
+  breadcrumb :<%= index_helper %>, :<%= index_helper %>_path, match: :exact
+
+  helper_method :main_application_navigation_link_key
+
+  def index
+  end
+
+  def show
+    breadcrumb :<%= singular_route_name  %>, <%= show_helper %>
+  end
+
+  def new
+    breadcrumb :new_<%= singular_route_name  %>, <%= new_helper %>
+    @<%= singular_table_name %>_form = <%= class_name %>Form.new
+  end
+
+  def edit
+    breadcrumb :edit_<%= singular_route_name  %>, <%= edit_helper %>
+    @<%= singular_table_name %>_form = <%= class_name %>Form.new(
+      <%= singular_table_name%>: @<%= singular_table_name %>
+    )
+  end
+
+  def create
+    @<%= singular_table_name %>_form = <%= class_name %>Form.new(<%="#{singular_table_name}_params"%>)
+    @<%= singular_table_name %>_form.save!
+
+    flash[:success] = flash_success_with_icon(message: t('<%= singular_table_name %>.created_message'))
+
+    respond_to do |format|
+      format.html { redirect_to <%= show_helper %> }
+      format.json { json_redirect(location: <%= show_helper %>)}
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveModel::ValidationError
+    respond_to do |format|
+      format.json do
+        errors = PracticalFramework::FormBuilders::Base.build_error_json(model: @<%= singular_table_name %>_form, helpers: helpers)
+        render json: errors, status: :bad_request
+      end
+      format.html do
+        render :new, status: :bad_request
+      end
+    end
+  end
+
+  def update
+    @<%= singular_table_name %>_form = <%= class_name %>Form.new(<%="#{singular_table_name}_params"%>.merge(
+      <%= singular_table_name %>: @<%= singular_table_name %>
+    ))
+    @<%= singular_table_name %>_form.save!
+
+    flash[:success] = flash_success_with_icon(message: t('<%= singular_table_name %>.updated_message'))
+
+    respond_to do |format|
+      format.html { redirect_to <%= show_helper %> }
+      format.json { json_redirect(location: <%= show_helper %>)}
+    end
+  rescue ActiveRecord::RecordInvalid, ActiveModel::ValidationError
+    respond_to do |format|
+      format.json do
+        errors = PracticalFramework::FormBuilders::Base.build_error_json(model: @<%= singular_table_name %>_form, helpers: helpers)
+        render json: errors, status: :bad_request
+      end
+      format.html do
+        render :edit, status: :bad_request
+      end
+    end
+  end
+
+  def destroy
+    @<%= orm_instance.destroy %>
+    redirect_to <%= index_helper %>_url, notice: flash_notice_with_icon(message: t('<%= singular_table_name %>.destroyed_message')), status: :see_other
+  end
+
+  def main_application_navigation_link_key
+    case params[:action].to_sym
+    when :show
+      :<%= singular_table_name %>
+    else
+      :<%= plural_table_name %>
+    end
+  end
+
+  private
+
+  def load_<%= plural_table_name %>
+    @<%= plural_table_name %> = scoped_relation
+  end
+
+  def load_<%= singular_table_name %>
+    @<%= singular_table_name %> = authorized_scope(<%= orm_class.all(class_name) %>, with: <%= orm_class %>Policy).find(params[:id])
+  end
+
+  def scoped_relation
+    authorized_scope(<%= orm_class.all(class_name) %>, with: <%= orm_class %>Policy)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def <%= "#{singular_table_name}_params" %>
+    <%- if attributes_names.empty? -%>
+    params.fetch(:<%= singular_table_name %>_form, {})
+    <%- else -%>
+    params.require(:<%= singular_table_name %>_form).permit(<%= permitted_params %>)
+    <%- end -%>
+  end
+end
+<% end -%>

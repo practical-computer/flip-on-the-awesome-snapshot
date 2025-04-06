@@ -1,0 +1,21 @@
+<section class="wa-stack">
+  <header class="wa-cluster">
+    <h2><%= helpers.icon_text(icon: helpers.icon_set.job_icon, text: job.name) %></h2>
+
+    <%= render Organization::Job::StatusBadgeComponent.new(status: job.status) %>
+  </header>
+
+  <nav class="wa-cluster">
+    <%= link_to(edit_organization_job_url(current_organization, job), class: 'wa-button') do %>
+      <%= helpers.icon_text(icon: helpers.icon_set.edit_job_icon, text: t("dispatcher.jobs.edit_job.link_title")) %>
+    <% end %>
+  </nav>
+
+  <% if job.google_place.present? %>
+    <%= render V2::GooglePlaceComponent.new(google_place: job.google_place) %>
+  <% end %>
+
+  <% if job.note.present? %>
+    <%= render V2::Organization::NoteComponent.new(note: job.note) %>
+  <% end %>
+</section>

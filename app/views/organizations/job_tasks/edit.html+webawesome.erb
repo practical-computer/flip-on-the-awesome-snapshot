@@ -1,0 +1,5 @@
+<section class="wa-stack">
+  <h2><%= icon_text(icon: icon_set.edit_job_task_icon, text: t('dispatcher.job_tasks.edit_job_task.title')) %></h1>
+
+  <%= render Forms::JobTaskFormComponent.new(form: @form) %>
+</section>

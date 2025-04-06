@@ -1,0 +1,10 @@
+<tr>
+  <td><%= passkey.label %></td>
+  <td><%= auditing_time_tag(passkey.created_at) %></td>
+  <td><%= auditing_time_tag(passkey.last_used_at) if passkey.last_used_at %></td>
+  <% if current_user.passkeys.count > 1 %>
+    <td>
+      <%= render partial: "users/passkeys/delete_passkey_form", locals: {passkey: passkey} %>
+    </td>
+  <% end %>
+</tr>

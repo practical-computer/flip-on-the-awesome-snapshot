@@ -1,0 +1,50 @@
+<section class="wa-stack">
+  <header class="wa-stack">
+    <section class="wa-cluster">
+      <h2><%= icon_text(icon: icon_set.onsite_icon, text: onsite.label) %></h2>
+
+      <%= render Organization::Onsite::PriorityBadgeComponent.new(priority: onsite.priority) %>
+      <%= render Organization::Onsite::StatusTagComponent.new(onsite: onsite) %>
+
+      <section class="wa-callout wa-size-s wa-neutral wa-outlined wa-cluster">
+        <%= icon_text(icon: icon_set.job_icon, text: job.name) %>
+        <%= render Organization::Job::StatusBadgeComponent.new(status: job.status) %>
+      </section>
+    </section>
+  </header>
+
+  <% if google_place.present? %>
+    <%= render V2::GooglePlaceComponent.new(google_place: google_place) %>
+  <% end %>
+
+  <% if job.note.present? || onsite.notes.any? %>
+    <h3><%= icon_text(icon: icon_set.notes_icon, text: "Notes") %></h3>
+    <section class="wa-stack">
+      <% if job.note.present? %>
+        <section class="wa-stack wa-neutral wa-callout">
+          <h4><%= icon_text(icon: icon_set.notes_icon, text: "Job Notes") %></h4>
+
+          <%= render V2::Organization::NoteComponent.new(note: job.note) %>
+        </section>
+      <% end %>
+
+      <section class="wa-stack">
+        <h4><%= icon_text(icon: icon_set.notes_icon, text: "Onsite Notes") %></h4>
+
+        <section class="wa-stack" role="list">
+          <%= render V2::Organization::NoteComponent.with_collection(onsite.notes.chronological) %>
+        </section>
+      </section>
+    </section>
+  <% end %>
+
+  <% if onsite.tasks.scannable_ordering.any? %>
+    <section>
+      <h3><%= icon_text(icon: icon_set.job_task_icon, text: t('dispatcher.job_tasks.categories.onsite_tasks.title')) %></h3>
+
+      <p><%= t('dispatcher.job_tasks.categories.onsite_tasks.description') %></p>
+
+      <%= render Readonly::TaskTableComponent.new(job_tasks: onsite.tasks.scannable_ordering) %>
+    </section>
+  <% end %>
+</section>

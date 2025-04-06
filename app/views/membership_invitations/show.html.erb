@@ -1,0 +1,26 @@
+<div class="cover">
+  <section class="stack-compact center principal">
+    <h1>
+      <%= icon(style: 'fa-solid fa-fw', name: :hexagon) %>
+
+      <%= t("membership_invitations.accept_form.title") %>
+    </h1>
+    <%= t("membership_invitations.accept_form.description.html") %>
+
+    <%= render partial: "invitation_details", locals: {membership_invitation: @membership_invitation} %>
+    <hr>
+
+    <% if user_signed_in? %>
+      <%= render partial: "accept_as_current_user_prompt", locals: {membership_invitation: @membership_invitation} %>
+    <% else %>
+      <%= render partial: "new_user_from_invitation_form", locals: {form: @new_user_form} %>
+      <hr>
+      <section>
+        <%= render PracticalFramework::Components::ButtonTo.new(new_user_session_url, method: :get) do %>
+          <%= signin_icon %>
+          <%= t('membership_invitations.new_user_from_invitation_form.signin_button_title') %>
+        <% end %>
+      </section>
+    <% end %>
+  </section>
+</div>

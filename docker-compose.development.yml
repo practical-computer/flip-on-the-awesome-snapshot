@@ -1,0 +1,27 @@
+version: '3.4'
+
+x-ruby-build: &ruby-build
+  context: .
+  dockerfile: Dockerfile
+
+x-ruby-volumes: &ruby-volumes
+  - .:/rails
+  - gem_cache:/usr/local/bundle/gems
+
+x-ruby-defaults: &ruby-defaults
+  build: *ruby-build
+  volumes: *ruby-volumes
+  env_file:
+    - .env
+    - .env.local
+
+services:
+  app:
+    <<: *ruby-defaults
+    ports:
+      - "3002:3000"
+    environment:
+      RAILS_ENV: development
+
+volumes:
+  gem_cache:

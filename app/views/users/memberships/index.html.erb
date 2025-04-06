@@ -1,0 +1,52 @@
+<section class="stack-default">
+  <h1><%= icon(style: 'fa-solid fa-fw', name: "hexagon") %> <%= t("user_memberships.title") %></h1>
+
+  <% if @memberships.active.any? %>
+    <section class="stack-compact">
+      <h2><%= badge_icon %> <%= t("user_memberships.active.title") %></h2>
+
+      <%= render partial: "membership_table", locals: {memberships: @memberships.active} %>
+    </section>
+  <% end %>
+
+  <% if @memberships.pending_reacceptance.any? %>
+    <section class="stack-compact">
+      <h2><%= icon(style: 'fa-duotone  fa-fw', name: "hourglass-half") %> <%= t("user_memberships.pending_reacceptance.title") %></h2>
+      <%= render partial: "membership_table", locals: {memberships: @memberships.pending_reacceptance} %>
+    </section>
+  <% end %>
+
+  <% if @membership_invitations.any? %>
+    <section class="stack-compact max-inline-size-fit-content">
+      <h2><%= icon(style: 'fa-duotone  fa-fw', name: "envelope-dot") %> <%= t("user_memberships.pending_invitations.title") %></h2>
+    </section>
+
+    <table class="no-max-inline-size">
+      <col class="table-label">
+      <col span="3">
+      <thead>
+        <tr>
+          <th class='force-border-start-start-radius table-label' scope='col'><%= warehouse_icon %> Name</th>
+          <th class='table-label' scope="col"><%= badge_icon %> Role</th>
+          <th class='table-label force-border-start-end-radius' scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <%= render partial: "membership_invitation_table_row", collection: @membership_invitations, as: :membership_invitation %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <% if @memberships.archived_by_user.any? %>
+    <details class="box-default stack-compact rounded">
+      <summary>
+        <h2><%= icon(style: 'fa-solid fa-fw', name: 'chevron-down', html_options: {class: 'details-marker'})%> <span> <%= icon(style: 'fa-kit  fa-fw', name: "solid-id-badge-slash") %> <%= t("user_memberships.archived.title") %></span></h2>
+      </summary>
+
+      <div class="details-contents">
+        <%= render partial: "membership_table", locals: {memberships: @memberships.archived_by_user} %>
+      </div>
+    </section>
+  <% end %>
+</section>

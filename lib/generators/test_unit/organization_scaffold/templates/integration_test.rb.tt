@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class <%= controller_name %>ControllerTest < ActionDispatch::IntegrationTest
+  include PracticalFramework::TestHelpers::TiptapDocumentHelpers
+
+  def assert_index_policies_applied(organization:, &block)
+    assert_have_authorized_scope(type: :active_record_relation, with: <%= policy_class_name %>, &block)
+  end
+
+  def assert_create_policies_applied(organization:, &block)
+    assert_authorized_to(:show?, organization, with: OrganizationPolicy) do
+      assert_authorized_to(:create?, nil, with: <%= policy_class_name %>, &block)
+    end
+  end
+
+  def assert_manage_policies_applied(organization:, <%= singular_name %>:, &block)
+    assert_authorized_to(:show?, organization, with: OrganizationPolicy) do
+      assert_authorized_to(:manage?, <%= singular_name %>, with: <%= policy_class_name %>, &block)
+    end
+  end
+
+  test "index: lists all <%= plural_name %>"
+
+  test "new: renders the form for a new <%= singular_name %>"
+
+  test "create: creates a new <%= singular_name %>"
+
+  test "create: renders errors as JSON"
+  test "create: renders errors as HTML"
+
+  test "show: renders an existing <%= singular_name %>"
+
+  test "edit: renders the edit form for an existing <%= singular_name %>"
+
+  test "update: updates the existing <%= singular_name %>"
+
+  test "update: renders errors as JSON"
+  test "update: renders errors as HTML"
+end

@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th><%= icon_text(icon: icon_set.status_icon, text: "Status") %></th>
+      <th><%= icon_text(icon: icon_set.status_icon, text: "Task") %></th>
+      <th><%= icon_text(icon: icon_set.status_icon, text: "Estimate") %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% job_tasks.each do |job_task| %>
+    <tr>
+      <td><%= render Organization::JobTask::StatusTagComponent.new(status: job_task.status) %></td>
+      <td><%= job_task.label %></td>
+      <td><%= helpers.human_minutes(minutes: job_task.estimated_minutes) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

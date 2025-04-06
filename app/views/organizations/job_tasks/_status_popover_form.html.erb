@@ -1,0 +1,39 @@
+<%# locals: (job_task:, dom_id:) -%>
+
+<dialog id="<%= dom_id %>" popover class="rounded box-compact blurred-background">
+  <div class="stack-compact">
+    <section class="cluster-default">
+      <%= render PracticalFramework::Components::ClosePopoverButton.new(popover_dom_id: dom_id, icon: dialog_close_icon) %>
+    </section>
+    <%= application_form_with(model: job_task, url: job_task_url(current_organization, id: job_task)) do |f| %>
+      <%= f.fieldset do %>
+        <%= f.legend do %>
+          <%= job_task_icon %>
+          <%= t("dispatcher.job_tasks.status_popover_form.title") %>
+        <% end %>
+
+        <dl>
+          <dt><%= job_task_label_icon %> Task</dt>
+          <dd><%= job_task.label %></dd>
+        </dl>
+
+        <%= f.fieldset("aria-required": true, id: f.field_id(:status)) do %>
+          <%= f.legend do %>
+            <%= status_icon %> Status
+            <%= f.field_errors(:status, class: 'visually-hidden', id: f.field_id(:status, :errors_aria)) %>
+          <% end %>
+
+          <%= f.required_radio_collection_wrapper(:status, "validation-message": job_task.errors.generate_message(:status, :blank), class: "stack-compact") do %>
+            <%= f.radio_collection(field_method: :status, options: job_task_status_options) %>
+          <% end %>
+
+          <%= f.field_errors :status, "aria-hidden": true, id: f.field_id(:status, :errors) %>
+        <% end %>
+
+        <section>
+          <%= render PracticalFramework::Components::StandardButton.new(title: t("dispatcher.job_tasks.status_popover_form.submit_button_title"), leading_icon: save_icon, type: :submit, html_options: {data: {disable: true}}) %>
+        </section>
+      <% end %>
+    <% end %>
+  </div>
+</dialog>

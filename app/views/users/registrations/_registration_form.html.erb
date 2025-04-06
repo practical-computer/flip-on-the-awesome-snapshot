@@ -1,0 +1,65 @@
+<%= practical_form_with(
+      model: resource,
+      as: resource_name,
+      url: registration_path(resource_name),
+      local: false,
+      id: dom_id(resource, :registration_form),
+      "aria-describedby": dom_id(resource, :generic_errors),
+      method: :post,
+      data: {
+        "challenge_url": new_user_registration_challenge_url,
+        "credential_field_name": field_name(resource_name, :passkey_credential)
+      },
+      builder: PracticalFramework::FormBuilders::Base,
+      class: "stack-compact"
+) do |f| %>
+  <%= f.fieldset do %>
+    <%= f.legend do %>
+      <%= signup_icon %>
+      <%= t("user_settings.registration.form.title") %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :email do %>
+        <%= icon(style: 'fa-solid', name: 'at') %>
+        Email
+      <% end %>
+
+      <%= f.email_field(:email, placeholder: t("practical_framework.forms.placeholders.email"),
+                                autofocus: true,
+                                autocomplete: "username webauthn",
+                                required: true,
+                                data: {"focusout-validation": true}
+                       )
+      %>
+
+      <%= f.field_errors :email %>
+    <% end %>
+
+    <%= f.input_wrapper do %>
+      <%= f.label :name do %>
+        <%= icon(style: 'fa-solid', name: 'hand-wave') %>
+        Name
+      <% end %>
+
+      <%= f.text_field(:name, placeholder: t("practical_framework.forms.placeholders.name"),
+                                autofocus: true,
+                                autocomplete: "name",
+                                required: true,
+                                data: {"focusout-validation": true}
+                       )
+      %>
+
+      <%= f.field_errors :name %>
+    <% end %>
+
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("user_settings.registration.form.submit_button_title"), leading_icon: passkey_icon, type: :submit, html_options: {data: {disable: true}}) %>
+    </section>
+  <% end %>
+<% end %>
+
+<script type="module">
+  import {submitFormEvent} from 'registration_form'
+  document.getElementById(`<%= dom_id(resource, :registration_form) %>`).addEventListener('submit', submitFormEvent)
+</script>

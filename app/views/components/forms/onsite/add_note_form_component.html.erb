@@ -1,0 +1,25 @@
+<%= helpers.webawesome_form_with(model: form, url: url_for([form.note, organization_id: current_organization])) do |f| %>
+  <%= f.legend do %>
+    <%= f.fieldset_title(icon: helpers.icon_set.add_note_icon, title: t("dispatcher.notes.form.title")) %>
+  <% end %>
+
+  <%= f.input_component(:tiptap_document, label_options: {for: f.field_id(:tiptap_document)}) do |component| %>
+    <% component.with_label do %>
+      <%= f.field_title(icon: helpers.icon_set.notes_icon, title: "Notes") %>
+    <% end %>
+
+    <% component.with_field do %>
+      <%= f.practical_editor_field(object_method: :tiptap_document, direct_upload_url: organization_attachments_url(form.current_organization)) %>
+    <% end %>
+  <% end %>
+
+  <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+
+  <%= f.hidden_field :resource_gid %>
+
+  <section>
+    <%= f.button_component(type: :submit, color_variant: :success, options: {data: {disable: true}}) do %>
+      <%= helpers.icon_text(icon: helpers.icon_set.save_icon, text: t("dispatcher.notes.form.submit_button_title")) %>
+    <% end %>
+  </section>
+<% end %>

@@ -1,0 +1,16 @@
+<section class="stack-default">
+  <h1><%= t("organization.title", organization_name: current_organization.name) %></h1>
+
+  <nav class="cluster-compact">
+    <%= link_to new_organization_job_path(current_organization) do %>
+      <%= add_job_icon %> <%= t("dispatcher.jobs.new_job.link_title") %>
+    <% end %>
+  </nav>
+
+  <%= render Organization::JobsDatatableComponent.new(
+    datatable_form: @datatable_form,
+    jobs: @organization_jobs,
+    pagy: @pagy,
+    request: request
+  ) %>
+</section>

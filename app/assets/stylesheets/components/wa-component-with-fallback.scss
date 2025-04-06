@@ -1,0 +1,9 @@
+wa-component-with-fallback {
+  > [data-wa-component]:not(:defined) {
+    display: none;
+  }
+
+  > [data-wa-component]:defined + [data-fallback-component] {
+    display: none;
+  }
+}

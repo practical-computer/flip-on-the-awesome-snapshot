@@ -1,0 +1,13 @@
+<section class="stack-default">
+  <h1><%= job_task_icon %> <%= t("dispatcher.job_tasks.title") %></h1>
+
+  <nav class="cluster-compact">
+    <%= link_to new_organization_job_task_url do %>
+      <%= add_job_task_icon %> <%= t("dispatcher.job_tasks.new_job_task.link_title") %>
+    <% end %>
+  </nav>
+
+  <section>
+    <%= render partial: "job_tasks_table", locals: {job_tasks: @organization_job_tasks} %>
+  </section>
+</section>

@@ -1,0 +1,62 @@
+<section class="wa-stack">
+  <nav class="wa-cluster">
+    <% if add_job_task_dialog_button? %>
+      <%= add_job_task_dialog_button %>
+    <% end %>
+    <%= render Organization::JobTask::Datatable::FilterComponent.new(datatable_form: datatable_form, url: datatable_form_url) %>
+  </nav>
+  <% if job_tasks.any? %>
+    <table class="jobs">
+      <thead>
+        <tr>
+          <th>
+            <%= sort_link_for(key: "status") do %>
+              <%= icon_text(icon: icon_set.status_icon, text: "Status") %>
+            <% end %>
+          </th>
+
+          <th>
+            <%= sort_link_for(key: "label") do %>
+              <%= icon_text(icon: icon_set.job_task_label_icon, text: "Task") %>
+            <% end %>
+          </th>
+
+          <th>
+            <%= sort_link_for(key: "onsite_label") do %>
+              <%= icon_text(icon: icon_set.onsite_icon, text: "Onsite") %>
+            <% end %>
+          </th>
+
+          <th>
+            <%= sort_link_for(key: "estimated_minutes") do %>
+              <%= icon_text(icon: icon_set.estimated_duration_icon, text: "Estimate") %>
+            <% end %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% job_tasks.each do |job_task| %>
+        <tr>
+          <td><%= render Organization::JobTask::StatusDropdownComponent.new(job_task: job_task) %></td>
+          <td><%= link_to job_task.label, edit_job_task_url(current_organization, job_task) %></td>
+          <td>
+          <% if job_task.onsite.present? %>
+            <span class="wa-cluster">
+              <%= link_to(job_task.onsite.label, helpers.onsite_url(current_organization, job_task.onsite)) %>
+
+              <% if job_task.onsite.scheduled? || job_task.onsite.in_progress? %>
+                <%= render Organization::Onsite::PriorityBadgeComponent.new(priority: job_task.onsite.priority) %>
+              <% end %>
+
+              <%= render Organization::Onsite::StatusBadgeComponent.new(onsite: job_task.onsite) %>
+            </span>
+          <% end %>
+          </td>
+          <td><%= helpers.human_minutes(minutes: job_task.estimated_minutes) %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</section>

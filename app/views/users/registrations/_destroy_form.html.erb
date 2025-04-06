@@ -1,0 +1,33 @@
+<%= practical_form_with(
+  model: resource,
+  as: resource_name,
+  url: registration_path(resource_name),
+  local: false,
+  id: dom_id(resource, :destroy_form),
+  "aria-describedby": dom_id(resource, :destroy_generic_errors),
+  method: :delete,
+  data: {
+    confirm: "Are you sure?",
+    "reauthentication_challenge_url": new_user_reauthentication_challenge_url,
+    "reauthentication_token_url": user_reauthentication_url,
+    "reauthentication_token_field_name": "#{resource_name}[reauthentication_token]"
+  },
+  builder: PracticalFramework::FormBuilders::Base,
+  class: "stack-compact"
+) do |f| %>
+  <% f.fieldset do %>
+    <%= f.legend do %>
+      <%= icon(style: 'fa-duotone', name: 'user-slash') %>
+      <%= t("user_settings.destroy.form.title") %>
+    <% end %>
+    <%= f.hidden_field :reauthentication_token, id: dom_id(resource, :destroy_reauthentication_token)%>
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("user_settings.destroy.form.submit_button_title"), leading_icon: icon(style: :"fa-kit", name: :passkey), type: :submit, html_options: {data: {disable: true}}, classes: [:danger]) %>
+    </section>
+  <% end %>
+<% end %>
+
+<script type="module">
+  import {submitFormEvent} from 'submit_form_after_reauthentication'
+  document.getElementById(`<%= dom_id(resource, :destroy_form) %>`).addEventListener('submit', submitFormEvent)
+</script>

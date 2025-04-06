@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html data-default-theme="match-system" data-theme="<%= theme_attribute %>">
+  <head>
+    <%= capybara_lockstep if defined?(Capybara::Lockstep) %>
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.8.2/dist/es-module-shims.js"></script>
+    <%= javascript_include_tag "theme-toggle" %>
+    <%= javascript_include_tag "fontawesome", async: true, defer: true %>
+    <%= render partial: "layouts/snippets/google_places_api_script_tag" %>
+    <%= render partial: "layouts/snippets/honeybadger_js_script_tag" %>
+    <title>
+      <% if content_for?(:page_title) %>
+        <%= content_for(:page_title) %>
+      <% else %>
+        <%= [AppSettings.app_name, breadcrumb_trail&.first&.name].join(" | ") %>
+      <% end %>
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "practical-framework" %>
+    <%= stylesheet_link_tag "fontawesome" %>
+    <%= stylesheet_link_tag "application" %>
+    <% if content_for?(:javascript_includes) %>
+      <%= content_for(:javascript_includes) %>
+    <% else %>
+      <%= javascript_include_tag "boot", type: :module %>
+    <% end %>
+
+    <meta name="theme-color" content="#ffe9d6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#04231f" media="(prefers-color-scheme: dark)">
+
+    <%= content_for(:head) if content_for(:head) %>
+  </head>
+
+  <body>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+
+    <!-- Note that you MUST call this helper to render the cached symbols   -->
+    <% cached_icon(symbol_name: 'error-list-icon', style: 'fa-solid', name: 'circle-exclamation') %>
+    <%= cached_fontawesome_symbols %>
+
+
+    <template id='error-list-item-template'>
+      <li>
+        <span class="fa-li"><svg class="icon"><use href="#error-list-icon"></use></svg></span>
+        <span></span>
+      </li>
+    </template>
+  </body>
+</html>

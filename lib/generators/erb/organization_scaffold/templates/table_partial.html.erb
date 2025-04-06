@@ -1,0 +1,13 @@
+<table class="no-max-inline-size <%= plural_name %>">
+  <col class="table-label">
+  <col span="3">
+  <thead>
+    <tr>
+      <th class='table-label' scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%%= render partial: "<%= singular_name %>_table_row", collection: <%= plural_name %>, as: :<%= singular_name %> %>
+  </tbody>
+</table>

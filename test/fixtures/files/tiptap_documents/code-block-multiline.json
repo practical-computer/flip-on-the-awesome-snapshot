@@ -1,0 +1,17 @@
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "codeBlock",
+      "attrs": {
+        "language": null
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Code snippet \n    Extra content in the code\nMore inline code\nMulti-line"
+        }
+      ]
+    }
+  ]
+}

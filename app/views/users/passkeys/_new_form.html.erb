@@ -1,0 +1,30 @@
+<% add_passkey_form_component = AddPasskeyFormComponent.new(scope: :passkey,
+                                           url: user_passkeys_url,
+                                           form_id: :"add-passkey-form",
+                                           new_passkey_fields_id: "new-passkey-fields",
+                                           unlock_button_id: :"unlock-add-passkey-form",
+                                           reauthentication_challenge_url: new_user_reauthentication_challenge_url,
+                                           reauthentication_token_url: user_reauthentication_url,
+                                           challenge_url: new_create_challenge_user_passkeys_url
+                                          ) %>
+<%= render add_passkey_form_component %>
+
+
+<script type="module">
+  import {getReauthenticationToken} from 'passkey_reauthentication_handler'
+  import {submitFormEvent} from 'registration_form'
+
+  const formID = `#add-passkey-form`
+  const unlockButtonID = `#unlock-add-passkey-form`
+  const newPasskeyFieldsID = `#new-passkey-fields`
+
+  let unlockFormEvent = async function(event){
+    let unlockButton = event.currentTarget
+    let form = unlockButton.closest('form')
+    await getReauthenticationToken(form)
+    form.querySelector(newPasskeyFieldsID).removeAttribute("disabled")
+  }
+
+  document.querySelector(unlockButtonID).addEventListener('click', unlockFormEvent)
+  document.querySelector(formID).addEventListener('submit', submitFormEvent)
+</script>

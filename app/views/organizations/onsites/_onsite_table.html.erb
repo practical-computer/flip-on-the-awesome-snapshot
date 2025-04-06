@@ -1,0 +1,20 @@
+<table class="no-max-inline-size onsites">
+  <col class="table-label">
+  <col span="3">
+  <thead>
+    <tr>
+      <th class='table-label' scope="col"><%= onsite_label_icon %> Onsite Label</th>
+      <th class='table-label' scope="col"><%= status_icon %> Status</th>
+      <th class='table-label' scope="col"><%= job_task_icon %> Tasks</th>
+      <th class='table-label' scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%= render partial: "organizations/onsites/onsite_table_row",
+             collection: onsites,
+             as: :onsite,
+             cached: -> (onsite){ [onsite.cache_key, onsite.tasks_updated_at] }
+  %>
+  </tbody>
+</table>

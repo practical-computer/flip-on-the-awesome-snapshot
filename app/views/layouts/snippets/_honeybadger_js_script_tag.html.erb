@@ -1,0 +1,8 @@
+<script src="//js.honeybadger.io/v6.9/honeybadger.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  Honeybadger.configure(<%= honeybadger_js_configuration.to_json.html_safe %>);
+
+  <% if current_user.present? %>
+    Honeybadger.setContext(<%= honeybadger_context.to_json.html_safe %>);
+  <% end %>
+</script>

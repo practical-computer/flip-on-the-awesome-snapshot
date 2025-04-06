@@ -1,0 +1,22 @@
+<section class="stack-default">
+  <h1><%= icon(style: 'fa-solid fa-fw', name: "hexagon") %> <%= t("organization_memberships.edit.page_title", name: @membership.user.name) %></h1>
+
+
+  <%= render partial: "form", locals: {form: @form} %>
+
+  <section>
+    <% if @membership.archived_by_organization? %>
+      <%= render PracticalFramework::Components::ButtonTo.new( organization_membership_url(current_organization, @membership), method: :patch, params: {organization_membership_form: {state: :active}}, class: "success") do %>
+        <%= badge_icon %>
+        <%= t('organization_memberships.activate.button_title') %>
+      <% end %>
+    <% end %>
+
+    <% if allowed_to?(:archive?, @membership, with: Organization::MembershipPolicy) && @membership.active? %>
+      <%= render PracticalFramework::Components::ButtonTo.new(organization_membership_url(current_organization, @membership), method: :patch, params: {organization_membership_form: {state: :archived_by_organization}}, class: "danger") do %>
+        <%= icon(style: 'fa-kit fa-fw', name: 'solid-id-badge-slash') %>
+        <%= t('organization_memberships.archive.button_title') %>
+      <% end %>
+    <% end %>
+  </section>
+</section>

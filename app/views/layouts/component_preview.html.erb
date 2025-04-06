@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-default-theme="match-system" data-theme="<%= theme_attribute %>">
+  <head>
+    <title>Component Preview</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= render partial: "layouts/snippets/google_places_api_script_tag" %>
+
+    <%= javascript_include_tag "v2-theme-toggle" %>
+    <%= javascript_include_tag "v2-application", type: :module %>
+
+    <%= stylesheet_link_tag "v2-framework" %>
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.11/dist/styles/themes/active.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.11/dist/webawesome.loader.js"></script>
+
+    <%= content_for(:head) if content_for(:head) %>
+
+    <%= tag.meta(name: "fa-kit-code", data: {fa_kit_code: AppSettings.fontawesome_kit_code}) %>
+  </head>
+
+  <body  class="wa-fouce-off">
+    <div class="preview-frame">
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </div>
+
+    <style>
+      .preview-frame {
+        margin: 1em;
+        border: 1px dotted gray;
+      }
+    </style>
+
+    <%= render PracticalViews::Form::ErrorListItemTemplateComponent.new %>
+  </body>
+</html>

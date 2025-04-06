@@ -1,0 +1,28 @@
+<tr>
+  <td class="left-sticky table-label" scope="row"><%= membership_invitation.organization.name %></td>
+  <td>
+    <%= membership_type_icon(membership_type: membership_invitation.membership_type) %>
+    <%= t("membership_types.#{membership_invitation.membership_type}.human") %>
+  </td>
+  <% if allowed_to?(:manage?, membership_invitation, with: User::MembershipInvitationPolicy) %>
+    <td>
+      <nav>
+        <ul class='cluster-compact'>
+          <li>
+            <%= render PracticalFramework::Components::ButtonTo.new(accept_as_current_user_membership_invitation_url(membership_invitation.generate_token_for(:invitation)), method: :patch, class: 'success') do %>
+              <%= icon(style: "fa-duotone fa-fw", name: 'circle-check') %>
+              <%= t('user_memberships.invitation.accept.button_title') %>
+            <% end %>
+          </li>
+
+          <li>
+            <%= render PracticalFramework::Components::ButtonTo.new(user_hide_membership_invitation_url(membership_invitation), method: :delete, class: 'danger') do %>
+              <%= icon(style: "fa-duotone fa-fw", name: 'circle-xmark') %>
+              <%= t('user_memberships.invitation.hide.button_title') %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    </td>
+  <% end %>
+</tr>

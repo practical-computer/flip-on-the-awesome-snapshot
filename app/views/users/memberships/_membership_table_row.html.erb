@@ -1,0 +1,23 @@
+<tr>
+  <td class="left-sticky table-label" scope="row"><%= link_to membership.organization.name, organization_url(membership.organization) %></td>
+  <td>
+    <%= membership_type_icon(membership_type: membership.membership_type) %>
+    <%= t("membership_types.#{membership.membership_type}.human") %>
+  </td>
+  <% if allowed_to?(:manage?, membership, with: User::MembershipPolicy) %>
+    <td>
+      <nav>
+        <ul class='cluster-compact'>
+          <li>
+              <% if allowed_to?(:leave?, membership, with: User::MembershipPolicy) && membership.active? %>
+                <%= render PracticalFramework::Components::ButtonTo.new(user_membership_url(membership), method: :patch, params: {user_memberships_form: {state: :archived_by_organization}}, class: "danger") do %>
+                  <%= icon(style: 'fa-kit fa-fw', name: 'solid-id-badge-slash') %>
+                  <%= t('user_memberships.archive.button_title') %>
+                <% end %>
+              <% end %>
+          </li>
+        </ul>
+      </nav>
+    </td>
+  <% end %>
+</tr>

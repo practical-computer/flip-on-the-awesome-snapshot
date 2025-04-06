@@ -1,0 +1,7 @@
+<section class="wa-cluster">
+  <%= link_to readonly_onsite_url(onsite.generate_token_for(:readonly_view)), target: "_blank" do %>
+    <%= icon_text(icon: icon_set.share_icon, text: t('dispatcher.onsites.public_url.title')) %>
+  <% end %>
+
+  <%= tag.wa_copy_button(value: readonly_onsite_url(onsite.generate_token_for(:readonly_view))) %>
+</section>

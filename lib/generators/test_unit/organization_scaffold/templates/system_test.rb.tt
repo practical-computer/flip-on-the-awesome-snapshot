@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+require "application_system_test_case"
+
+class <%= class_name %>SystemTest < ApplicationSystemTestCase
+  test "can see all the <%= plural_name %> on the index"
+  test "creates a new <%= singular_name %>"
+  test "updates a <%= singular_name %>"
+end

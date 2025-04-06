@@ -1,0 +1,11 @@
+<div class="cover">
+  <section class="stack-compact center principal">
+    <h1>
+      <%= emergency_passkey_registration_icon %>
+
+      <%= guided_translate(".emergency_passkey_registrations.request_form.title.text") %>
+    </h1>
+    <%= guided_translate(".emergency_passkey_registrations.request_form.description.html") %>
+    <%= render partial: "request_form", locals: {form: @form} %>
+  </section>
+</div>

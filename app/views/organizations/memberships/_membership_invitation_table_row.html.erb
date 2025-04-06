@@ -1,0 +1,31 @@
+<tr>
+  <td><%= mail_to membership_invitation.email %></td>
+  <td>
+    <%= membership_type_icon(membership_type: membership_invitation.membership_type) %>
+    <%= t("membership_types.#{membership_invitation.membership_type}.human") %>
+  </td>
+  <td>
+    <%= url_field_tag(nil, membership_invitation_url(membership_invitation.generate_token_for(:invitation)), readonly: true) %>
+  </td>
+  <% if allowed_to?(:manage?, membership_invitation, with: Organization::MembershipInvitationPolicy) %>
+    <td>
+      <nav>
+        <ul class='cluster-compact'>
+          <li>
+            <% if membership_invitation.can_be_resent? %>
+              <%= render PracticalFramework::Components::ButtonTo.new( resend_organization_membership_invitation_url(current_organization, membership_invitation), method: :patch) do %>
+                <%= send_email_icon %>
+                <%= t('organization_memberships.invitation.resend.button_title') %>
+              <% end %>
+            <% end %>
+
+            <%= render PracticalFramework::Components::ButtonTo.new( organization_membership_invitation_url(current_organization, membership_invitation), method: :delete, class: 'danger') do %>
+              <%= icon(style: "fa-duotone fa-fw", name: 'link-slash') %>
+              <%= t('organization_memberships.invitation.revoke.button_title') %>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
+    </td>
+  <% end %>
+</tr>

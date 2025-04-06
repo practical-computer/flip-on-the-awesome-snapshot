@@ -1,0 +1,31 @@
+en:
+  pagy:
+    item_name:
+      one: "item"
+      other: "items"
+
+    nav:
+      prev: "%{icon} Previous"
+      next: "Next %{icon}"
+      v2_prev: "Previous"
+      v2_next: "Next"
+      gap: "&hellip;"
+
+      prev_page_title: "Previous Page"
+      next_page_title: "Next Page"
+      page_title: "Page %{page_number}"
+      current_page_title: "Page %{page_number} (current page)"
+
+      goto_page_form:
+        legend: "Go to page"
+        button: "Go"
+
+    info:
+      no_items: "No %{item_name} found"
+      single_page: "Showing %{count} %{item_name}"
+      multiple_pages: "Showing %{from}-%{to} of %{count} %{item_name}"
+      page_count:
+        one: "(1 page)"
+        other: "(page %{page} of %{count})"
+
+      page_detail_text: "%{item_text} %{page_count_text}"

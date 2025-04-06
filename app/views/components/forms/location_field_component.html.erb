@@ -1,0 +1,13 @@
+<%= tag.google_place_autocomplete(name: field_name, value: field_value) do %>
+  <%= f.text_field(
+    location_field_name,
+    data: {"autocomplete-element": true},
+    autocomplete: "none",
+    value: location_field_value
+  ) %>
+
+  <small data-formatted-address-hint class="wa-flank wa-gap-xs wa-quiet">
+    <%= render helpers.icon_set.formatted_address_icon %>
+    <span><slot name="formatted_address"><%= location_field_value %></slot></span>
+  </small>
+<% end %>

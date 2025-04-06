@@ -1,0 +1,15 @@
+<section class="stack-default">
+  <header class='cluster-default'>
+    <h1>
+      <%= note_icon %> Note
+    </h1>
+  </header>
+
+  <%= render partial: "actions", locals: {note: @organization_note} %>
+
+  <section class='rounded box-compact stack-compact'>
+    <%= render Organization::NoteResourceTitleComponent.new(note: @organization_note) %>
+
+    <%= render Organization::NoteComponent.new(note: @organization_note) %>
+  </section>
+</section>

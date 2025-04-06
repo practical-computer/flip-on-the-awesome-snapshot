@@ -1,0 +1,38 @@
+<%= practical_form_with(
+      model: resource,
+      scope: :user_theme,
+      url: user_update_theme_url,
+      local: true,
+      id: dom_id(resource, :theme_form),
+      "aria-describedby": dom_id(resource, :generic_errors),
+      method: :patch,
+      builder: ApplicationFormBuilder,
+      class: "stack-compact"
+) do |f| %>
+  <%= f.fieldset do %>
+    <%= f.legend do %>
+      <%= theming_icon %>
+      <%= t("user_settings.theme.form.title") %>
+    <% end %>
+
+    <%= f.fieldset("aria-required": true, id: f.field_id(:theme)) do %>
+      <%= f.legend do %>
+        <%= theme_icon %>
+        Theme
+        <%= f.field_errors(:theme, class: 'visually-hidden', id: f.field_id(:theme, :errors_aria)) %>
+      <% end %>
+
+      <%= f.required_radio_collection_wrapper(:theme, "validation-message": resource.errors.generate_message(:theme, :blank), class: "stack-compact") do %>
+        <%= f.radio_collection(field_method: :theme, options: user_theme_options) %>
+      <% end %>
+
+      <%= f.field_errors :theme, "aria-hidden": true, id: f.field_id(:theme, :errors) %>
+    <% end %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(resource, :generic_errors)}) %>
+
+    <section>
+      <%= render PracticalFramework::Components::StandardButton.new(title: t("user_settings.theme.form.submit_button_title"), leading_icon: save_icon, type: :submit) %>
+    </section>
+  <% end %>
+<% end %>

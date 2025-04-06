@@ -1,0 +1,61 @@
+<section class="stack-default">
+  <h1><%= icon(style: 'fa-solid fa-fw', name: "hexagon") %> <%= t("organization_memberships.title") %></h1>
+
+  <% if @memberships.active.any? %>
+    <section class="stack-compact">
+      <h2><%= badge_icon %> <%= t("organization_memberships.active.title") %></h2>
+
+      <%= render partial: "membership_table", locals: {memberships: @memberships.active} %>
+    </section>
+  <% end %>
+
+  <% if @memberships.pending_reacceptance.any? %>
+    <section class="stack-compact">
+      <h2><%= icon(style: 'fa-duotone  fa-fw', name: "hourglass-half") %> <%= t("organization_memberships.pending_reacceptance.title") %></h2>
+      <%= render partial: "membership_table", locals: {memberships: @memberships.pending_reacceptance} %>
+    </section>
+  <% end %>
+
+  <% if allowed_to?(:manage?, current_organization, with: OrganizationPolicy) %>
+    <% if @membership_invitations.any? %>
+      <section class="stack-compact max-inline-size-fit-content">
+        <h2><%= icon(style: 'fa-duotone  fa-fw', name: "envelope-dot") %> <%= t("organization_memberships.pending_invitations.title") %></h2>
+      </section>
+
+      <table class="no-max-inline-size">
+        <col class="table-label">
+        <col span="3">
+        <thead>
+          <tr>
+            <th class='table-label' scope="col"><%= email_address_icon %> Email</th>
+            <th class='table-label' scope="col"><%= badge_icon %> Role</th>
+            <th class='table-label' scope="col"><%= link_icon %> Invite link</th>
+            <th class='table-label force-border-start-end-radius' scope="col"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <%= render partial: "membership_invitation_table_row", collection: @membership_invitations, as: :membership_invitation %>
+        </tbody>
+      </table>
+    <% end %>
+
+    <section class="stack-compact box-compact rounded">
+      <h2><%= send_email_icon %><%= t("organization_memberships.invitation_form.title") %></h2>
+
+      <%= render partial: "invitation_form", locals: {form: @invitation_form} %>
+    </section>
+  <% end %>
+
+  <% if @memberships.archived_by_organization.any? %>
+    <details class="box-default stack-compact rounded">
+      <summary>
+        <h2><%= icon(style: 'fa-solid fa-fw', name: 'chevron-down', html_options: {class: 'details-marker'})%> <span> <%= icon(style: 'fa-kit  fa-fw', name: "solid-id-badge-slash") %> <%= t("organization_memberships.archived.title") %></span></h2>
+      </summary>
+
+      <div class="details-contents">
+        <%= render partial: "membership_table", locals: {memberships: @memberships.archived_by_organization} %>
+      </div>
+    </section>
+  <% end %>
+</section>

@@ -1,0 +1,77 @@
+<section class="stack-default">
+  <header class='cluster-default'>
+    <h1>
+      <%= job_icon %> <%= @organization_job.name %>
+    </h1>
+
+    <section>
+      <%= render Organization::JobStatusBadge.new(job: @organization_job) %>
+    </section>
+  </header>
+
+  <nav class="cluster-compact">
+    <%= link_to edit_organization_job_url(current_organization, @organization_job) do %>
+      <%= edit_job_icon %> <%= t("dispatcher.jobs.edit_job.link_title") %>
+    <% end %>
+  </nav>
+
+  <% if @organization_job.google_place.present? %>
+    <section class="stack-compact">
+      <h2><%= location_icon %> Address</h2>
+
+      <section class='rounded box-compact stack-compact'>
+        <%= render GooglePlaceComponent.new(google_place: @organization_job.google_place) %>
+      </section>
+    </section>
+  <% end %>
+
+  <% if @organization_job.note.present? %>
+    <section class="stack-compact">
+      <h2><%= notes_icon %> Notes</h2>
+
+      <section class='rounded box-compact stack-compact'>
+        <%= render Organization::NoteComponent.new(note: @organization_job.note) %>
+      </section>
+    </section>
+  <% end %>
+
+  <section class="stack-compact">
+    <h2><%= onsite_icon %> Onsites</h2>
+
+    <nav class="cluster-compact">
+      <%= link_to new_organization_job_onsite_url(current_organization, @organization_job) do %>
+        <%= add_onsite_icon %> <%= t("dispatcher.onsites.new_onsite.link_title") %>
+      <% end %>
+    </nav>
+
+    <section>
+      <%= render partial: "organizations/onsites/onsite_table", locals: {onsites: @organization_job.onsites} %>
+    </section>
+  </section>
+
+  <section class="stack-compact">
+    <h2><%= job_task_icon %> <%= t('dispatcher.job_tasks.categories.all_tasks.title') %></h2>
+
+    <p><%= t('dispatcher.job_tasks.categories.all_tasks.description') %></p>
+
+    <%= render Organization::Jobs::TasksDatatableComponent.new(
+      organization_job: @organization_job,
+      datatable_form: @job_task_datatable_form,
+      job_tasks: @job_tasks,
+      pagy: @pagy,
+      request: request
+    ) %>
+
+    <details class="box-compact stack-compact rounded" open>
+      <summary>
+        <h3><%= details_icon %> <span> <%= add_job_task_icon %> <%= t("dispatcher.job_tasks.job_add_task_section.title") %></span></h3>
+      </summary>
+
+      <div class="details-contents">
+        <section class="add-task-form stack-compact">
+          <%= render partial: "organizations/job_tasks/form", locals: {form: @job_task_form, autofocus: false} %>
+        </section>
+      </div>
+    </details>
+  </section>
+</section>

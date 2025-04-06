@@ -1,0 +1,11 @@
+.job-task-status-badge {
+  &.done {
+    --background: var(--success-color-03);
+    --color: var(--success-color-09);
+  }
+
+  &.cancelled {
+    --background: var(--text-color-00);
+    --color: var(--default-disabled-color);
+  }
+}

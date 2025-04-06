@@ -1,0 +1,29 @@
+<tr>
+  <td>
+    <% popover_dom_id = dom_id(job_task, :status_popover) %>
+    <%= render PracticalFramework::Components::StandardButton.new(
+        title: t("dispatcher.job_tasks.status.#{job_task.status}.human"),
+        leading_icon: job_task_status_icon(status: job_task.status), type: :button,
+        html_options: {popovertarget: popover_dom_id}
+      )
+    %>
+
+    <%= render partial: "organizations/job_tasks/status_popover_form", locals: {job_task: job_task, dom_id: popover_dom_id } %>
+  </td>
+  <td>
+    <%= link_to job_task_url(current_organization, job_task) do %>
+      <%= job_task.label %>
+    <% end %>
+  </td>
+  <td>
+    <%= human_minutes(minutes: job_task.estimated_minutes) %>
+  </td>
+  <td>
+    <%= job_task_onsite_label(job_task: job_task, short_no_onsite_message: true) %>
+  </td>
+  <td>
+    <%= link_to edit_job_task_url(current_organization, job_task) do %>
+      <%= edit_job_task_icon %> <%= t("dispatcher.job_tasks.edit_job_task.link_title") %>
+    <% end %>
+  </td>
+</tr>

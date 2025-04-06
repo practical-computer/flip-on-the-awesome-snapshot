@@ -1,0 +1,29 @@
+<wa-card with-footer class="card-footer note" id="<%= dom_id(note) %>">
+  <section class="wa-stack wa-gap-0 tiptap-document">
+    <%= render PracticalViews::TiptapDocumentComponent.new(document: note.tiptap_document) %>
+  </section>
+
+
+  <footer slot="footer" class="wa-stack">
+    <section class="wa-split">
+      <section class="wa-cluster">
+        <%= render UserNameComponent.new(user: note.original_author) %>
+        <% if resource_link? %>
+          <section><%= resource_link %></section>
+        <% end %>
+      </section>
+      <section class="wa-stack wa-gap-0 wa-size-s">
+        <span>written <%= render PracticalViews::RelativeTimeComponent.new(time: note.created_at) %></span>
+        <% if note.created_at != note.updated_at %>
+          <em>updated <%= render PracticalViews::RelativeTimeComponent.new(time: note.updated_at) %></em>
+        <% end %>
+      </section>
+    </section>
+
+    <% if actions? %>
+      <section>
+        <%= actions %>
+      </section>
+    <% end %>
+  </footer>
+</wa-card>

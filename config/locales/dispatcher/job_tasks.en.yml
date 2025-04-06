@@ -1,0 +1,81 @@
+en:
+  activerecord:
+    errors:
+      models:
+        organization/job_task:
+          attributes:
+
+  activemodel:
+    errors:
+      models:
+        organization/job_task_form:
+          attributes:
+            base:
+              cannot_manage_job_tasks: "We were not able to save this; please contact support."
+
+  app_navigation:
+    home_section:
+      job_tasks_title: "Job tasks"
+  loaf:
+    breadcrumbs:
+      organization_job_tasks: "Job tasks"
+      new_organization_job_task: "New Job task"
+      organization_job_task: "Job task: ‟%{job_task_label}”"
+      edit_organization_job_task: "Edit Job task: ‟%{job_task_label}”"
+
+  dispatcher:
+    job_tasks:
+      title: "Job tasks"
+      datatable_form:
+        title: "Filter tasks"
+        filtered_label: "Label includes"
+        filtered_statuses: "Statuses"
+      form:
+        title: "Details"
+        submit_button_title: "Save"
+
+        estimated_duration_popover:
+          title: "Examples"
+          default_example_html: "<dt><code>1:20</code></dt><dd>1 hour, 20 minutes</dd>"
+          minutes_only_html: "<dt><code>90</code></dt><dd>90 minutes</dd>"
+          hours_only_html: "<dt><code>1:</code></dt><dd>1 hour</dd>"
+      new_job_task:
+        title: "New Job task"
+        link_title: "Add a new job_task"
+      edit_job_task:
+        title: "Edit Job task"
+        link_title: "Edit"
+      created_message: "We’ve created your new task!"
+      updated_message: "Updated ‟%{job_task_label}”"
+      no_onsite:
+        human: "This is not part of any onsite."
+        short: "None"
+      status:
+        todo:
+          human: Todo
+          description: This needs to get done.
+        done:
+          human: Done
+          description: We did it!
+        cancelled:
+          human: Cancelled
+          description: We're not doing this anymore.
+      task_type:
+        onsite:
+          human: Onsite
+          description: This can only get done onsite.
+        offsite:
+          human: Offsite
+          description: This can get done from the office.
+      job_add_task_section:
+        title: Add a new task
+      categories:
+        all_tasks:
+          title: All tasks
+          description: All the tasks for this job.
+        onsite_tasks:
+          title: Tasks for this onsite
+          description: All the tasks that are part of this onsite
+      status_popover_form:
+        title: "Change Task Status"
+        submit_button_title: "Update status"

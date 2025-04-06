@@ -1,0 +1,17 @@
+<%= practical_form_with(
+  model: passkey,
+  scope: :passkey,
+  url: user_passkey_url(passkey),
+  method: :delete,
+  local: false,
+  data: {
+    "reauthentication_challenge_url": new_destroy_challenge_user_passkey_url(passkey),
+    "reauthentication_token_url": user_reauthentication_url,
+    "reauthentication_token_field_name": field_name(:passkey, :reauthentication_token),
+  },
+  builder: PracticalFramework::FormBuilders::Base,
+  class: "stack-compact delete-passkey"
+) do |f| %>
+  <%= f.hidden_field :reauthentication_token, id: dom_id(passkey, :reauthentication_token) %>
+  <%= render PracticalFramework::Components::StandardButton.new(title: t("user_settings.passkeys.destroy.form.submit_button_title"), leading_icon: icon(style: :"fa-kit", name: :passkey), type: :submit, html_options: {data: {disable: true}}, classes: [:danger]) %>
+<% end %>

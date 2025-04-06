@@ -1,0 +1,44 @@
+<table class="no-max-inline-size jobs">
+  <col class="table-label">
+  <col span="3">
+  <thead>
+    <tr>
+      <th class='table-label' scope="col">
+        <%= render Navigation::DatatableSortLink.new(
+            url: organization_jobs_url(current_organization,
+                                       datatable: Navigation::DatatableSortLink.merged_payload(datatable_form: @datatable_form,
+                                         sort_key: "name"
+                                       )
+            ),
+            datatable_form: @datatable_form,
+            sort_key: "name"
+          ) do %>
+          <%= job_name_icon %> Job Name
+        <% end %>
+      </th>
+      <th class='table-label' scope="col">
+        <%= render Navigation::DatatableSortLink.new(
+            url: organization_jobs_url(current_organization,
+                                       datatable: Navigation::DatatableSortLink.merged_payload(datatable_form: @datatable_form,
+                                         sort_key: "status"
+                                       )
+            ),
+            datatable_form: @datatable_form,
+            sort_key: "status"
+          ) do %>
+          <%= status_icon %> Status
+        <% end %>
+      </th>
+      <th class='table-label' scope="col">
+        <%= job_task_icon %> Tasks
+      </th>
+      <th class='table-label' scope="col">
+        <%= onsite_icon %> Onsites
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%= render partial: "job_table_row", collection: jobs, as: :job %>
+  </tbody>
+</table>

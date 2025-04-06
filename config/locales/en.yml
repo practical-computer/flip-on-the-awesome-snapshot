@@ -1,0 +1,215 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
+en:
+  app_title:
+    text: "Dispatcher"
+    html: "Dispatcher"
+
+  emergency_passkey_registrations:
+    request_form:
+      title:
+        text: "Can’t log in?"
+
+      description:
+        html: "<p>Not to worry! You can register a new passkey and get back into your account.</p>"
+
+    registration_form:
+      title:
+        text: "Register your new passkey"
+
+      description:
+        html: "<p>Once you register your new passkey, you'll be able to log back into your account.</p>"
+
+    sent_message: "Sending the instructions to your email!"
+    registered_message: "Your passkey has been registered; you can login now!"
+    prompt: "Can’t log in?"
+  registration:
+    prompt: "Create an account"
+  signin:
+    prompt: "Sign in"
+    form:
+      title: "Sign in"
+      submit_button: "Sign in"
+
+  app_navigation:
+    user_settings:
+      home_title: "Home"
+      profile_title: "My Account"
+      memberships_title: "Memberships"
+      signout_title: "Sign out"
+      organizations: "Organizations"
+      back_to_organizations: "Choose Organization"
+    home_section:
+      memberships_title: "Memberships"
+      change_organizations_title: "Change Organizations"
+
+  loaf:
+    breadcrumbs:
+      user_settings: "My Account"
+      user_memberships: "My Memberships"
+      user_signup: "Create an account"
+      organization_memberships: "Organization Membership"
+      edit_organization_membership: "Edit Membership"
+      membership_invitation: "Membership Invitation"
+
+  user_settings:
+    profile:
+      form:
+        title: My contact information
+        submit_button_title: "Verify & Update"
+    theme:
+      form:
+        title: "Customize display options"
+        submit_button_title: "Save"
+      updated_message: "Your theme has been changed!"
+    registration:
+      form:
+        title: Create an account
+        submit_button_title: "Sign up"
+    destroy:
+      form:
+        title: "Delete my account"
+        submit_button_title: "Verify & destroy my account"
+      contact_support_message:
+        html: "<p>Want to delete your account? Please contact customer support</p>"
+    passkeys:
+      section_title: "Passkeys"
+      current_passkeys_title: "My passkeys"
+      create:
+        form:
+          title: "Add passkey"
+          submit_button_title: "Add passkey"
+      destroy:
+        form:
+          submit_button_title: "Remove"
+
+  organization_memberships:
+    title: "Organization Membership"
+    invitation_form:
+      title: "Invite someone to your organization"
+      submit_button_title: "Send invitation"
+    active:
+      title: "Active members"
+    pending_reacceptance:
+      title: "Waiting for response"
+    pending_invitations:
+      title: "Sent invitations"
+    archived:
+      title: "Archived members"
+
+    edit:
+      page_title: "Membership for %{name}"
+      link_title: "Edit"
+      form:
+        submit_button_title: "Update membership"
+
+    archive:
+      button_title: "Archive"
+
+    activate:
+      button_title: "Reactivate"
+
+    invitation:
+      resend:
+        button_title: "Resend"
+      revoke:
+        button_title: "Revoke"
+
+    invitation_sent_message: "Invitation sent to ‟%{email}”!"
+    invitation_revoked_message: "Invitation to ‟%{email}” has been revoked"
+    cannot_be_resent_message: "We were not able to resend this invitation; please contact support."
+    already_member_message: "Good news, everyone! They’re already a member!"
+    awaiting_reacceptance_message: "We’ve sent them an invitation to rejoin, please ask them to check their ‟Memberships” tab."
+    updated_message: "Updated membership!"
+
+  user_memberships:
+    title: "My Memberships"
+    active:
+      title: "Active memberships"
+    pending_reacceptance:
+      title: "Memberships awaiting my response"
+    pending_invitations:
+      title: "Membership invitations"
+    archived:
+      title: "Archived memberships"
+
+    archive:
+      button_title: "Leave"
+
+    invitation:
+      accept:
+        button_title: "Accept"
+      hide:
+        button_title: "Hide"
+    updated_message: "Updated membership!"
+    archived_message: "This membership has been archived."
+
+    invitation_hidden_message: "Hidden the invitation for %{organization_name}."
+
+  membership_invitations:
+    accept_form:
+      title: "Accept this invitation?"
+      description:
+        html: "<p>You have been invited to join a new organization.</p>"
+      details:
+        caption:
+          html: "Invitation details"
+      accept_as_current_user:
+        title: "Accept this invitation as %{name}"
+        description:
+          html: "<p>You’ll share the following information with %{organization_name}:</p>"
+        accept_button_title: "Accept invitation"
+        sign_out_button_title: "Actually, sign out"
+    new_user_from_invitation_form:
+      signin_button_title: "Wait! I have an account; let me sign in."
+      submit_button_title: "Sign up & Accept invitation"
+    accepted_message: "You’re now a member of %{organization_name}"
+    registered_message: "Your account has been created; you can login now!"
+
+  membership_types:
+    staff:
+      human: "Staff"
+      description: "Can do everything but invite new members."
+    organization_manager:
+      human: "Organization Manager"
+      description: "Can invite other users, along with access everything else."
+
+  organization:
+    title: "%{organization_name}"
+
+  organizations:
+    title: "Available Organizations"
+
+  tiptap_document:
+    attachment_missing:
+      text: "We weren’t able to find this attachment"
+
+  share_button:
+    title: "Share"

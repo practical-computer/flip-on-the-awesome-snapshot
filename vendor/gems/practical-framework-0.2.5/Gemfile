@@ -1,0 +1,42 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+source "https://rubygems.pkg.github.com/practical-computer" do
+  gem "font-awesome-helpers", "0.1.0"
+end
+
+# Specify your gem's dependencies in practical-framework.gemspec
+gemspec
+
+gem "rake", "~> 13.0"
+
+gem "minitest", "~> 5.0"
+
+gem "rubocop", "~> 1.21"
+
+gem "puma"
+
+gem "sqlite3", "~> 2.3"
+
+gem 'debug'
+gem 'shrine'
+gem 'webauthn'
+
+group :test do
+  gem "bundler-audit", "~> 0.9.1"
+  gem "faker"
+  gem "phlex-testing-capybara", "~> 0.1.0"
+  gem "phlex-testing-nokogiri", "~> 0.1.0"
+  gem "simplecov"
+  gem 'spy'
+  gem 'timecop'
+end
+
+group :development, :test do
+  gem 'rubocop-capybara', require: false
+  gem 'rubocop-minitest', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem "rubocop-rails-omakase", require: false
+  gem 'rubocop-rubycw', require: false
+end

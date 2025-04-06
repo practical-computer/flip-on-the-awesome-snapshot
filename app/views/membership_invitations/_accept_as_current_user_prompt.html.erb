@@ -1,0 +1,33 @@
+<section class="stack-compact">
+  <h2><%= t("membership_invitations.accept_form.accept_as_current_user.title", name: current_user.name) %></h2>
+
+  <%= t("membership_invitations.accept_form.accept_as_current_user.description.html", organization_name: membership_invitation.organization.name) %>
+
+  <table>
+    <tbody>
+      <tr>
+        <th class="table-label"><%= email_address_icon %> Email</th>
+        <td><%= mail_to current_user.email %></td>
+      </tr>
+      <tr>
+        <th class="table-label"><%= user_name_icon %> Name</th>
+        <td><%= current_user.name %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class='cluster-default' style="--justify: space-between; --align: center" role="list">
+    <div role="listitem">
+      <%= render PracticalFramework::Components::ButtonTo.new(sign_out_then_show_membership_invitation_url(params[:id]), method: :delete) do %>
+        <%= sign_out_icon %>
+        <%= t('membership_invitations.accept_form.accept_as_current_user.sign_out_button_title') %>
+      <% end %>
+    </div>
+    <div role="listitem">
+      <%= render PracticalFramework::Components::ButtonTo.new(accept_as_current_user_membership_invitation_url(params[:id]), method: :patch, class: "success") do %>
+        <%= icon(style: 'fa-duotone', name: 'circle-check') %>
+        <%= t('membership_invitations.accept_form.accept_as_current_user.accept_button_title') %>
+      <% end %>
+    </div>
+  </section>
+</section>

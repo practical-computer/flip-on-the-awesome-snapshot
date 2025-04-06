@@ -1,0 +1,6 @@
+.onsite-priority-badge {
+  &.high_priority {
+    --background: var(--warning-color-03);
+    --color: var(--warning-color-09);
+  }
+}

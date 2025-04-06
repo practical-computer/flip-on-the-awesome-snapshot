@@ -1,0 +1,50 @@
+en:
+  errors:
+    attributes:
+      sender:
+        cannot_manage_organization: "We were not able to send this; please contact support."
+      membership_type:
+        blank: "Please select a role."
+      resource:
+        cannot_access_organization: "We were not able to save this; please contact support."
+      base:
+        payload_does_not_match_schema: "We aren't able to use this filter; please contact support."
+  activemodel:
+    errors:
+      models:
+        organization/new_membership_invitation_form:
+          attributes:
+            base:
+              cannot_be_resent: "We were not able to resend this invitation; please contact support."
+
+        organization/membership_form:
+          attributes:
+            state:
+              cannot_be_archived: "This member cannot be archived."
+            membership_type:
+              cannot_be_downgraded: "There must be at least one organization manager."
+
+        user/membership_form:
+          attributes:
+            state:
+              cannot_be_archived: "This membership cannot be archived."
+              cannot_be_changed: "This membership cannot be changed."
+              inclusion: "This membership can only be archived."
+  activerecord:
+    errors:
+      models:
+        membership:
+          attributes:
+            user:
+              taken: "This user is already part of this organization."
+
+        organization/job:
+          attributes:
+            status:
+              blank: "Please select a status."
+              still_has_todo_tasks: "A job cannot be archived if there are still tasks to do."
+
+        organization/job_task:
+          attributes:
+            onsite:
+              not_in_job: "We are not able to save this task; please contact support."

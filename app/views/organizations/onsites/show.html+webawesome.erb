@@ -1,0 +1,25 @@
+<section class="wa-stack">
+  <%= render Organization::Onsite::DetailsComponent.new(onsite: @organization_onsite) %>
+
+  <%= render Organization::Onsite::NotesComponent.new(onsite: @organization_onsite, note_form: @note_form) %>
+
+  <section class="wa-stack">
+    <h3><%= icon_text(icon: icon_set.job_task_icon, text: "Job Tasks") %></h3>
+
+    <% if @job_tasks.any? %>
+      <%= render Organization::JobTask::Datatable::OnsiteComponent.new(
+        onsite: @organization_onsite,
+        datatable_form: @job_task_datatable_form,
+        job_tasks: @job_tasks,
+        pagy: @pagy,
+        request: request
+      ) do |component| %>
+        <% component.with_add_job_task_dialog_button do %>
+          <%= render Organization::JobTask::AddDialogComponent.new(form: @job_task_form) %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render Organization::Onsite::NoTasksComponent.new(job_task_form: @job_task_form) %>
+    <% end %>
+  </section>
+</section>

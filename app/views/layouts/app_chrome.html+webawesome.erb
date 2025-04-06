@@ -1,0 +1,59 @@
+<% if AppSettings.posthog_session_recording? && user_signed_in? %>
+  <% content_for(:head) do %>
+    <%= render partial: "layouts/snippets/posthog_session_recording_script_tag" %>
+  <% end %>
+<% end %>
+
+<% content_for :head do %>
+  <link rel="icon" href="<%= image_url("icons/favicon.ico") %>" sizes="32x32">
+  <link rel="shortcut icon" type="image/png" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="shortcut icon" sizes="192x192" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="apple-touch-icon" href="<%= image_url("icons/apple-touch-icon.png") %>">
+  <link rel="manifest" href="<%= web_manifest_url %>">
+<% end %>
+
+<% content_for :page_title do %>
+  <%= [t('app_title.text', app_name: AppSettings.app_name), breadcrumb_trail&.first&.name].compact.join(" | ") %>
+<% end %>
+
+<% content_for :content do %>
+  <%= render ApplicationPageComponent.new do |component| %>
+    <% component.with_header do %>
+      <h1><%= AppSettings.app_name %></h1>
+    <% end %>
+
+    <% component.with_subheader do %>
+      <%= render PracticalViews::Navigation::BreadcrumbsComponent.new(breadcrumb_trail: breadcrumb_trail) %>
+    <% end %>
+
+    <% component.with_main_header do %>
+      <%= render PracticalViews::FlashMessagesComponent.new %>
+    <% end %>
+
+    <% if content_for?(:navigation_header) %>
+      <% component.with_navigation_header do %>
+        <%= yield(:navigation_header) %>
+      <% end %>
+    <% end %>
+
+    <% if content_for?(:navigation) %>
+      <% component.with_navigation do %>
+        <%= yield(:navigation) %>
+      <% end %>
+    <% end %>
+
+    <% if content_for?(:navigation_footer) %>
+      <% component.with_navigation_footer do %>
+        <%= yield(:navigation_footer) %>
+      <% end %>
+    <% end %>
+
+    <% if content_for?(:main_content) %>
+      <%= yield(:main_content) %>
+    <% else %>
+      <%= yield %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render template: "layouts/application" %>

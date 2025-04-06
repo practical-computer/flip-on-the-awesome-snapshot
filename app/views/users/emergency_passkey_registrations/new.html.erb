@@ -1,0 +1,14 @@
+<div class="cover">
+  <section class="stack-compact center principal">
+    <h1>
+      <%= icon(style: 'fa-duotone', name: 'light-emergency-on', html_options: {
+            style: "--fa-secondary-color: var(--danger-color-05); --fa-secondary-opacity: 0.9;"
+          })
+      %>
+
+      <%= guided_translate(".emergency_passkey_registrations.request_form.title.text") %>
+    </h1>
+    <%= guided_translate(".emergency_passkey_registrations.request_form.description.html") %>
+    <%= render partial: "request_form", locals: {form: @form} %>
+  </section>
+</div>

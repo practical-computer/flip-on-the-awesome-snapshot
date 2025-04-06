@@ -1,0 +1,44 @@
+en:
+  activerecord:
+    errors:
+      models:
+        organization/<%= singular_name %>:
+          attributes:
+
+  activemodel:
+    errors:
+      models:
+        organization/<%= singular_name %>_form:
+          attributes:
+
+  app_navigation:
+    home_section:
+      <%= plural_name %>_title: "<%= plural_name.humanize %>"
+  loaf:
+    breadcrumbs:
+      organization_<%= plural_name %>: "<%= plural_name.humanize %>"
+      new_organization_<%= singular_name %>: "New <%= human_name %>"
+      organization_<%= singular_name %>: "<%= human_name %>: ‟%{<%= singular_name %>_name}”"
+      edit_organization_<%= singular_name %>: "Edit <%= human_name %>: ‟%{<%= singular_name %>_name}”"
+
+  dispatcher:
+    <%= plural_name %>:
+      title: "<%= plural_name.humanize %>"
+      form:
+        title: "Details"
+        submit_button_title: "Save"
+      new_<%= singular_name %>:
+        title: "New <%= human_name %>"
+        link_title: "Add a new <%= singular_name %>"
+      edit_<%= singular_name %>:
+        title: "Edit <%= human_name %>"
+        link_title: "Edit"
+      created_message: "We’ve created your new <%= singular_name %>!"
+      updated_message: "Updated ‟%{<%= singular_name %>_name}”"
+      status:
+        active:
+          human: Active
+          description: This <%= singular_name %> is still being worked on.
+        archived:
+          human: Archived
+          description: We’ve wrapped up this <%= singular_name %> for now.

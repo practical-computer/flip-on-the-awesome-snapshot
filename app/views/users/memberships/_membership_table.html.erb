@@ -1,0 +1,15 @@
+<table class="no-max-inline-size">
+  <col class="table-label">
+  <col span="3">
+  <thead>
+    <tr>
+      <th class='force-border-start-start-radius table-label' scope='col'><%= warehouse_icon %> Name</th>
+      <th class='table-label' scope="col"><%= badge_icon %> Role</th>
+      <th class='table-label force-border-start-end-radius' scope="col"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%= render partial: "membership_table_row", collection: memberships, as: :membership %>
+  </tbody>
+</table>

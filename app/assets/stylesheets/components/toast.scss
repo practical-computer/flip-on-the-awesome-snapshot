@@ -1,0 +1,9 @@
+@layer framework.components{
+  dialog.toast {
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: static;
+    box-shadow: unset;
+  }
+}

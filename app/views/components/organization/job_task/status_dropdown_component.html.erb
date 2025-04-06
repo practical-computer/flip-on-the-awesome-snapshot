@@ -1,0 +1,25 @@
+<job-task-status-dropdown>
+  <%= helpers.webawesome_form_with(model: job_task, url: job_task_url(current_organization, job_task)) do |f| %>
+    <%= f.hidden_field :status %>
+    <wa-dropdown>
+      <%= tag.wa_button(slot: :trigger, caret: true, variant: variant) do %>
+        <%= helpers.icon_text(
+          icon: helpers.icon_set.job_task_status_icon(status: status),
+          text: helpers.human_job_task_status(status: status),
+          options: {class: "wa-gap-xs"}
+        ) %>
+      <% end %>
+      <wa-menu>
+      <% Organization::JobTask.statuses.keys.each do |status| %>
+        <%= tag.wa_menu_item(value: status, disabled: (status == job_task.status)) do %>
+          <% icon = icon_set.job_task_status_icon(status: status) %>
+          <% icon.options[:slot] = :prefix %>
+          <%= render icon %>
+
+          <%= helpers.human_job_task_status(status: status) %>
+        <% end %>
+      <% end %>
+      </wa-menu>
+    </wa-dropdown>
+  <% end %>
+</job-task-status-dropdown>

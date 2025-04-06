@@ -1,0 +1,22 @@
+<% if render_organization_switcher? %>
+  <% content_for(:navigation_header) do %>
+     <%= render Navigation::OrganizationSwitcherComponent.new(
+          current_user: current_user,
+          current_organization: current_organization
+        ) %>
+  <% end %>
+<% elsif render_organization_switcher? %>
+  <% content_for(:navigation_header) do %>
+    <%= render OrganizationNameComponent.new(organization: current_organization) %>
+  <% end %>
+<% end %>
+
+<% if current_organization.present? %>
+  <% content_for(:navigation) do %>
+    <%= render Navigation::OrganizationComponent.new(organization: current_organization) %>
+  <% end %>
+<% end %>
+
+<% content_for(:navigation_footer) do %>
+  <%= render Navigation::QuickUserSettingsComponent.new(current_user: current_user) %>
+<% end %>

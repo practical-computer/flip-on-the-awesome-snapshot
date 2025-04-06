@@ -1,0 +1,33 @@
+<%= practical_form_with(model: form,
+                        url: use_user_emergency_passkey_registration_url(token),
+                        method: :patch,
+                        local: false,
+                        "aria-describedby": dom_id(User::EmergencyPasskeyRegistrationForm, :generic_errors),
+                        data: {
+                          type: :json,
+                          challenge_url: new_challenge_user_emergency_passkey_registration_url(token),
+                          credential_field_name: field_name(form.model_name.param_key, :passkey_credential)
+                        }, builder: PracticalFramework::FormBuilders::Base,
+                        class: "stack-compact",
+) do |f| %>
+  <%= f.input_wrapper do %>
+    <%= f.label :passkey_label do %>
+      <%= t("practical_framework.forms.input_label.html", icon: icon(style: "fa-solid", name: "tag"), text: "Passkey label") %>
+    <% end %>
+    <%= f.text_field :passkey_label, placeholder: "iCloud Keychain", required: true, data: {"focusout-validation": true} %>
+
+    <%= f.field_errors :passkey_label %>
+    <%= f.hidden_field :passkey_credential %>
+
+    <%= f.fallback_error_section(options: {id: dom_id(form, :generic_errors)}) %>
+  <% end %>
+  <section>
+    <%= render PracticalFramework::Components::StandardButton.new(title: "Register passkey", leading_icon: icon(style: 'fa-kit', name: "passkey"), type: :submit, html_options: {data: {disable: true}}) %>
+  </section>
+
+  <script type="module">
+    import {submitFormEvent} from 'registration_form'
+
+    document.querySelector('form').addEventListener('submit', submitFormEvent)
+  </script>
+<% end %>

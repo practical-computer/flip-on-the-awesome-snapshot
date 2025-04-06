@@ -1,0 +1,20 @@
+<section class="wa-stack">
+  <header class="wa-cluster">
+    <h2><%= icon_text(icon: icon_set.onsite_icon, text: onsite.label) %></h2>
+
+    <%= render Organization::Onsite::PriorityBadgeComponent.new(priority: onsite.priority) %>
+    <%= render Organization::Onsite::StatusTagComponent.new(onsite: onsite) %>
+  </header>
+
+  <nav class="wa-cluster">
+    <%= link_to(edit_onsite_url(current_organization, onsite), class: "wa-button") do %>
+      <%= icon_text(icon: icon_set.edit_onsite_icon, text: t("dispatcher.onsites.edit_onsite.link_title")) %>
+    <% end %>
+
+    <%= render Organization::Onsite::TechnicianUrlComponent.new(onsite: onsite) %>
+  </nav>
+
+  <% if onsite.google_place.present? %>
+    <%= render V2::GooglePlaceComponent.new(google_place: onsite.google_place) %>
+  <% end %>
+</section>

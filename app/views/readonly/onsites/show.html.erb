@@ -1,0 +1,53 @@
+<div class="cover" >
+  <section class="stack-default">
+    <header class='cluster-default'>
+      <section class='stack-compact'>
+        <h1><%= job_icon %> <%= @onsite.job.name %></h1>
+        <section>
+          <%= render Organization::JobStatusBadge.new(job: @onsite.job) %>
+        </section>
+      </section>
+      <section>
+        <h2><%= onsite_icon %> <%= @onsite.label %></h2>
+        <section class="cluster-default">
+          <%= render Organization::OnsiteStatusBadge.new(onsite: @onsite) %>
+          <%= render Organization::OnsitePriorityBadge.new(onsite: @onsite) %>
+        </section>
+      </section>
+    </header>
+  </section>
+
+  <% google_place = @onsite.google_place.presence || @onsite.job.google_place.presence %>
+  <% if google_place.present? %>
+    <section class="stack-compact">
+      <h3><%= location_icon %> Address</h3>
+
+      <section class='rounded box-compact stack-compact'>
+        <%= render GooglePlaceComponent.new(google_place: google_place) %>
+      </section>
+    </section>
+  <% end %>
+
+  <% if @onsite.job.note.present? %>
+    <section class="stack-default">
+      <h3><%= notes_icon %> Job Notes </h3>
+    </section>
+  <% end %>
+
+  <section class="stack-default notes-list">
+    <h3><%= note_icon %> Onsite Notes</h3>
+    <section>
+      <section class="stack-default" role="list">
+        <%= render partial: "readonly/note_list_item", collection: @onsite.notes.chronological, as: :note, locals: {show_resource_title: false} %>
+      </section>
+    </section>
+  </section>
+
+  <section class="stack-compact">
+    <h2><%= job_task_icon %> <%= t('dispatcher.job_tasks.categories.onsite_tasks.title') %></h2>
+
+    <p><%= t('dispatcher.job_tasks.categories.onsite_tasks.description') %></p>
+
+    <%= render Readonly::JobTaskTable.new(job_tasks: @onsite.tasks.scannable_ordering) %>
+  </section>
+</div>

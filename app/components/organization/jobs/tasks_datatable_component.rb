@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+class Organization::Jobs::TasksDatatableComponent < Organization::Datatables::BaseJobTaskDatatableComponent
+  attr_accessor :organization_job
+
+  def initialize(organization_job:, datatable_form:, job_tasks:, pagy:, request:)
+    super(datatable_form: datatable_form,
+          job_tasks: job_tasks,
+          pagy: pagy,
+          request: request,
+          extra_section_classes: "all-tasks"
+        )
+
+    self.organization_job = organization_job
+  end
+
+  def sort_url_for(key:)
+    datatable_params = Navigation::DatatableSortLink.merged_payload(datatable_form: datatable_form,
+                                                                    sort_key: key
+                                                                   )
+
+    helpers.organization_job_url(helpers.current_organization, self.organization_job, datatable: datatable_params)
+  end
+
+  def datatable_form_url
+    helpers.organization_job_url(helpers.current_organization, self.organization_job)
+  end
+end

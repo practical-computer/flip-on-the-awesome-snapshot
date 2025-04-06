@@ -1,0 +1,8 @@
+Description:
+    Generate a migration for the given resource
+
+Example:
+    bin/rails generate devise:passkeys:web_authn_migration User
+
+    This will create:
+        db/migrate/..._add_webauthn_id_to_users.rb

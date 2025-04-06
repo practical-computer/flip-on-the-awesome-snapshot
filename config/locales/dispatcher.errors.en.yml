@@ -1,0 +1,15 @@
+en:
+  # errors:
+  #   attributes:
+  activemodel:
+    errors:
+      models:
+        organization/job_form:
+          attributes:
+            base:
+              cannot_manage_jobs: "You are not able to save jobs; please contact support."
+        organization/onsite_form:
+          attributes:
+            base:
+              archived_job: "This job is archived, please unarchive it to make changes."
+              cannot_manage_onsites: "You are not able to save onsites; please contact support."

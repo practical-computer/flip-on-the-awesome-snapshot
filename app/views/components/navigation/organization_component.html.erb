@@ -1,0 +1,53 @@
+<ul class="navigation-list">
+  <li>
+    <%= render Navigation::NavigationLinkComponent.new(
+      href: helpers.organization_url(organization),
+      selected: (:organization == helpers.main_application_navigation_link_key)
+    ) do |component| %>
+      <% component.with_icon do %>
+        <%= render helpers.icon_set.home_icon %>
+      <% end %>
+
+      <%= helpers.t("app_navigation.user_settings.home_title") %>
+    <% end %>
+  </li>
+  <li>
+    <%= render Navigation::NavigationLinkComponent.new(
+      href: helpers.organization_jobs_url(organization),
+      selected: (:organization_jobs == helpers.main_application_navigation_link_key)
+    ) do |component| %>
+      <% component.with_icon do %>
+        <%= render helpers.icon_set.job_icon %>
+      <% end %>
+
+      <%= helpers.t("app_navigation.home_section.jobs_title") %>
+    <% end %>
+  </li>
+  <li>
+    <%= render Navigation::NavigationLinkComponent.new(
+      href: helpers.organization_notes_url(organization),
+      selected: (:organization_notes == helpers.main_application_navigation_link_key)
+    ) do |component| %>
+      <% component.with_icon do %>
+        <%= render helpers.icon_set.notes_icon %>
+      <% end %>
+
+      <%= helpers.t("app_navigation.home_section.notes_title") %>
+    <% end %>
+  </li>
+
+  <wa-divider></wa-divider>
+
+  <li>
+    <%= render Navigation::NavigationLinkComponent.new(
+      href: helpers.organization_memberships_url(organization),
+      selected: (:organization_memberships == helpers.main_application_navigation_link_key)
+    ) do |component| %>
+      <% component.with_icon do %>
+        <%= render helpers.icon_set.memberships_icon %>
+      <% end %>
+
+      <%= helpers.t("app_navigation.home_section.memberships_title") %>
+    <% end %>
+  </li>
+</ul>

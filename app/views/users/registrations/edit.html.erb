@@ -1,0 +1,18 @@
+<section class="stack-default">
+  <%= render partial: "profile_form" %>
+  <%= render partial: "theme_form" %>
+  <section>
+    <h3>
+      <%= passkey_icon %>
+      <%= t("user_settings.passkeys.section_title") %>
+    </h3>
+    <%= render partial: "users/passkeys/passkeys_table", locals: { passkeys: current_user.passkeys } %>
+
+    <%= render partial: "users/passkeys/new_form" %>
+  </section>
+  <% if Flipper.enabled?(:self_service_user_destruction) %>
+    <%= render partial: "destroy_form" %>
+  <% else %>
+    <%= t("user_settings.destroy.contact_support_message.html") %>
+  <% end %>
+</section>

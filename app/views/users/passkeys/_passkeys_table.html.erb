@@ -1,0 +1,36 @@
+<table>
+  <caption>
+    <%= t("user_settings.passkeys.current_passkeys_title") %>
+  </caption>
+
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Created at</th>
+      <th>Last used at</th>
+      <% if current_user.passkeys.count > 1 %>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render partial: "users/passkeys/passkey_table_row", collection: passkeys, as: :passkey, cache: true %>
+  </tbody>
+</table>
+
+<% if current_user.passkeys.count > 1 %>
+  <script type="module">
+    import {getReauthenticationToken} from 'passkey_reauthentication_handler'
+
+    let submitDeletePasskeyFormEvent = async function(event){
+      event.preventDefault()
+      event.stopImmediatePropagation()
+      let form = event.currentTarget
+      await getReauthenticationToken(form)
+      form.submit()
+    }
+
+    document.querySelectorAll('.delete-passkey').forEach(form => form.addEventListener('submit', submitDeletePasskeyFormEvent))
+  </script>
+<% end %>

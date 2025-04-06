@@ -1,0 +1,89 @@
+en:
+  app_navigation:
+    home_section:
+      jobs_title: "Jobs"
+  loaf:
+    breadcrumbs:
+      organization_jobs: "Jobs"
+      new_organization_job: "New Job"
+      organization_job: "Job: ‟%{job_name}”"
+      edit_organization_job: "Edit Job: ‟%{job_name}”"
+      new_organization_onsite: "New Onsite"
+      organization_onsite: "Onsite: “%{onsite_label}”"
+      edit_organization_onsite: "Edit Onsite: “%{onsite_label}”"
+
+  dispatcher:
+    jobs:
+      title: "Jobs"
+      form:
+        title: "Details"
+        submit_button_title: "Save"
+      datatable_form:
+        title: "Filter Jobs"
+        filtered_statuses: "Statuses"
+        filtered_name: "Name includes"
+      new_job:
+        title: "New Job"
+        link_title: "Add a new job"
+      edit_job:
+        title: "Edit Job"
+        link_title: "Edit"
+      created_message: "We’ve created your new job!"
+      updated_message: "Updated ‟%{job_name}”"
+      status:
+        active:
+          human: Active
+          description: This job is still being worked on.
+        archived:
+          human: Archived
+          description: We’ve wrapped up this job for now.
+    onsites:
+      new_onsite:
+        title: "New Onsite"
+        link_title: "Add a new onsite"
+      edit_onsite:
+        title: "Edit Onsite"
+        link_title: "Edit"
+      form:
+        title: "Details"
+        submit_button_title: "Save"
+      created_message: "We’ve created your new onsite!"
+      updated_message: "Updated ‟%{onsite_label}” for “%{job_name}”"
+      status:
+        draft:
+          human: Draft
+          description: This onsite is ready to be scheduled.
+        scheduled:
+          human: Scheduled
+          description: This onsite is now on the schedule.
+        in_progress:
+          human: In progress
+          description: We’re currently working on this.
+        done:
+          human: Done
+          description: We’ve finished this onsite.
+        discarded:
+          human: Discarded
+          description: This onsite is either no longer correct or has been cancelled.
+      priority:
+        regular_priority:
+          human: Regular priority
+          description: Proceed as normal
+        high_priority:
+          human: High priority
+          description: Finish ASAP
+      public_url:
+        title: "Technician URL"
+        share_button:
+          title: "Share technician URL"
+    datatable:
+      form:
+        submit_button_title: "Filter"
+    placeholders:
+      job_name: "A new gig"
+      onsite_label: "Installation"
+      job_task_label: "Install conduit"
+      estimated_duration: "1:20"
+
+    google_place:
+      address_confirmation_button_title: "View address"

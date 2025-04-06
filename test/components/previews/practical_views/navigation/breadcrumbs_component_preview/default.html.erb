@@ -1,0 +1,8 @@
+<%
+    breadcrumb :organization_memberships, "/", match: /^\/$/
+    breadcrumb :user_settings, "/lookbook", match: /^\/lookbook$/
+    breadcrumb :user_signup, "/lookbook/navigation", match: /^\/lookbook\/navigation$/
+    breadcrumb :organization_memberships, request.url, match: :exact
+%>
+
+<%= render(PracticalViews::Navigation::BreadcrumbsComponent.new(breadcrumb_trail: breadcrumb_trail)) %>

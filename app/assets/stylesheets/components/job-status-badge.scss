@@ -1,0 +1,11 @@
+.job-status-badge {
+  &.active {
+    --background: var(--success-color-03);
+    --color: var(--success-color-09);
+  }
+
+  &.archived {
+    --background: var(--text-color-00);
+    --color: var(--default-disabled-color);
+  }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html data-default-theme="match-system" data-theme="<%= theme_attribute %>">
+  <head>
+    <%= capybara_lockstep if defined?(Capybara::Lockstep) %>
+    <%= javascript_include_tag "v2-theme-toggle" %>
+    <%= render partial: "layouts/snippets/google_places_api_script_tag" %>
+    <%= render partial: "layouts/snippets/honeybadger_js_script_tag" %>
+    <title>
+      <% if content_for?(:page_title) %>
+        <%= content_for(:page_title) %>
+      <% else %>
+        <%= [AppSettings.app_name, breadcrumb_trail&.first&.name].join(" | ") %>
+      <% end %>
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.11/dist/styles/themes/active.css" />
+    <%= stylesheet_link_tag "v2-framework" %>
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.11/dist/webawesome.loader.js"></script>
+
+    <%= content_for(:head) if content_for(:head) %>
+
+    <%= tag.meta(name: "fa-kit-code", data: {fa_kit_code: AppSettings.fontawesome_kit_code}) %>
+  </head>
+
+  <body  class="wa-fouce-off">
+    <%= content_for?(:content) ? yield(:content) : yield %>
+
+    <%= render PracticalViews::Form::ErrorListItemTemplateComponent.new %>
+  </body>
+</html>

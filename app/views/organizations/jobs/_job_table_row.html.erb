@@ -1,0 +1,23 @@
+<tr>
+  <td>
+    <%= link_to organization_job_url(current_organization, job) do %>
+      <%= job.name %>
+    <% end %>
+  </td>
+
+  <td>
+    <%= render Organization::JobStatusBadge.new(job: job) %>
+  </td>
+
+  <td>
+    <% cache([job, job.tasks_and_onsites_updated_at, :task_summary_component]) do %>
+      <%= render Organization::JobTasks::SummaryComponent.new(job_tasks: job.tasks) %>
+    <% end %>
+  </td>
+
+  <td>
+    <% cache([job, job.tasks_and_onsites_updated_at, :onsites_summary_component]) do %>
+      <%= render Organization::Jobs::OnsitesSummaryComponent.new(job: job) %>
+    <% end %>
+  </td>
+</tr>
