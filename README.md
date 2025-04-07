@@ -1,7 +1,7 @@
 # Flip On The Awesome Snapshot
 
 
-This repo is the companion to [Flip On The Awesome: A guide to overhauling a Rails app view layer]().
+This repo is the companion to [Flip On The Awesome: A guide to overhauling a Rails app view layer](https://thomascannon.me/guides/the-rails-view-layer).
 
 ## What is Dispatcher?
 
